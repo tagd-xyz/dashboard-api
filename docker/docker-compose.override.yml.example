@@ -1,0 +1,6 @@
+version: '3.3'
+services:
+  tagd-dash-api:
+    &tagd-dash-api
+    volumes:
+      - '../../../packages/core:/packages/core'

@@ -1,0 +1,37 @@
+version: '3.3'
+services:
+  tagd-dash-api-proxy:
+    image: nginx
+    container_name: tagd-dash-api-proxy
+    hostname: tagd-dash-api-proxy
+    restart: unless-stopped
+    command: /proxy_startup.sh
+    ports:
+      - 9137:80
+    volumes:
+      - ../:/app
+      - ./startup/proxy.sh:/proxy_startup.sh
+    environment:
+      - VIRTUAL_HOST=tagd-dash-api.${DEV_DOMAIN}
+      - DTK_VERSION=${DTK_VERSION}
+      - FASTCGI_PASS=tagd-dash-api:9000
+  tagd-dash-api:
+    &tagd-dash-api
+    image: docker.totallydev.com/tagd/docker/api/8.1-buster:dev
+    container_name: tagd-dash-api
+    hostname: tagd-dash-api
+    restart: unless-stopped
+    depends_on:
+      - tagd-dash-api-proxy
+    volumes:
+      - ~/.ssh:/var/www/.ssh
+      - ~/.composer:/var/www/.composer
+      - ../:/app
+    environment:
+      - WWW_DATA_UID=${USER_ID}
+      - WWW_DATA_GUID=${GROUP_ID}
+      - COMPOSER_INSTALL=1
+networks:
+  default:
+    name: dev
+    external: true

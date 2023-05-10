@@ -1,0 +1,184 @@
+image: alpine:latest
+
+variables:
+  GITLAB_HOST: gitlab.totallydev.com
+  DTK_VERSION: 1.7.11
+  DTK_HOME: /opt/dtk
+  QA_DOMAIN: tagd-dash-api.qa.tclstaging.com
+  UAT_DOMAIN: tagd-dash-api.uat.tclstaging.com
+  PRODUCTION_DOMAIN: api.tagd.com
+  PRODUCTION_BRANCH: 1.x.x
+  PRODUCTION_TAG_REGEX: '1\.(0|[1-9]\d*)\.(0|[1-9]\d*)$'
+
+.shared_runners:
+  tags:
+    - totally-uat-k8s
+
+stages:
+  - test
+  - prepare
+  - build
+  - deploy
+
+unit_test:
+  stage: test
+  image: composer:latest
+  extends:
+    - .shared_runners
+  before_script:
+    - ./build/scripts/install_dtk.sh
+  script:
+    - ./build/scripts/test.sh
+  rules:
+    - if: $CI_COMMIT_BRANCH
+
+quality:
+  stage: test
+  image: composer:latest
+  extends:
+    - .shared_runners
+  before_script:
+    - ./build/scripts/install_dtk.sh
+  script:
+    - ./build/scripts/quality.sh
+  rules:
+    - if: '$CI_COMMIT_BRANCH || $CI_MERGE_REQUEST_SOURCE_BRANCH_NAME'
+
+.prepare:
+  stage: prepare
+  extends:
+    - .shared_runners
+  image: composer:latest
+  cache:
+    key: tagd-dash-api-${ENV}
+    paths:
+      - vendor/
+  before_script:
+    - ./build/scripts/install_dtk.sh
+  artifacts:
+    paths:
+      - app.tar.gz
+    expire_in: 30 mins
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
+    - if: '$CI_COMMIT_REF_NAME == $PRODUCTION_BRANCH'
+      when: never
+    - if: '$CI_COMMIT_TAG || $CI_COMMIT_REF_NAME =~ /^(uat|qa)$/ || $CI_COMMIT_REF_NAME =~ /^(uat|qa)-.*/'
+  when: always
+
+prepare:qa:
+  extends: .prepare
+  script:
+    - ./build/scripts/prepare.sh
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^qa.*/'
+      when: on_success
+  variables:
+    COMPOSER_INSTALL_NO_DEV: 0
+
+prepare:uat:
+  extends: .prepare
+  script:
+    - ./build/scripts/prepare.sh
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^uat.*/'
+      when: on_success
+  variables:
+    COMPOSER_INSTALL_NO_DEV: 1
+
+.build:
+  stage: build
+  image: docker:18-git
+  extends:
+    - .shared_runners
+  variables:
+    DOCKER_HOST: tcp://127.0.0.1:2375
+    DOCKER_DRIVER: overlay2
+  services:
+    - docker:18-dind
+  before_script:
+    - ./build/scripts/install_dtk.sh
+  rules:
+    - if: '$CI_COMMIT_TAG || $CI_COMMIT_REF_NAME =~ /^(uat|qa).*/'
+  when: on_success
+
+build:phpfpm-qa:
+  extends: .build
+  script:
+    - ./build/scripts/build_phpfpm.sh
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^qa.*/'
+      when: on_success
+  variables:
+    COMPOSER_INSTALL_NO_DEV: 0
+
+build:phpfpm-uat:
+  extends: .build
+  script:
+    - ./build/scripts/build_phpfpm.sh
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^uat.*/'
+      when: on_success
+  variables:
+    COMPOSER_INSTALL_NO_DEV: 1
+
+build:proxy:
+  extends: .build
+  script:
+    - ./build/scripts/build_proxy.sh
+
+.deploy:
+  extends:
+    - .shared_runners
+  stage: deploy
+  dependencies: []
+  before_script:
+    - ./build/scripts/install_dtk.sh
+  script:
+    - ./build/scripts/deploy.sh
+  variables:
+    HELM_CHART_REPO: https://${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD}@gitlab.totallydev.com/helm/tagd/api.git
+    HELM_CHART_BRANCH: main
+
+deploy:qa:
+  extends:
+    - .deploy
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^qa.*/'
+      when: on_success
+  variables:
+    ENV: qa
+    HOST: ${QA_DOMAIN}
+    REPLICAS: 1
+  environment:
+    name: qa
+    url: https://${QA_DOMAIN}
+
+deploy:uat:
+  extends:
+    - .deploy
+  rules:
+    - if: '$CI_COMMIT_REF_NAME =~ /^uat.*/'
+      when: on_success
+  variables:
+    ENV: uat
+    HOST: ${UAT_DOMAIN}
+    REPLICAS: 1
+  environment:
+    name: uat
+    url: https://${UAT_DOMAIN}
+
+deploy:prod:
+  extends:
+    - .deploy
+  rules:
+    - if: '$CI_COMMIT_TAG'
+      when: manual
+  variables:
+    ENV: production
+    HOST: ${PRODUCTION_DOMAIN}
+    REPLICAS: 3
+  environment:
+    name: production
+    url: https://${PRODUCTION_DOMAIN}

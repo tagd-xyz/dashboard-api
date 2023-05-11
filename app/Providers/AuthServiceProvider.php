@@ -7,6 +7,8 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tagd\Core\Models\Actor\Reseller;
+use Tagd\Core\Models\Actor\Retailer;
+use Tagd\Core\Models\User\Role;
 use Tagd\Core\Repositories\Interfaces\Users\Users;
 
 class AuthServiceProvider extends ServiceProvider
@@ -22,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider
         \Tagd\Core\Models\Item\Tagd::class => \App\Policies\Item\Tagd::class,
         \Tagd\Core\Models\Resale\AccessRequest::class => \App\Policies\Resale\AccessRequest::class,
         \Tagd\Core\Models\Actor\Reseller::class => \App\Policies\Actor\Reseller::class,
+        \Tagd\Core\Models\Actor\Retailer::class => \App\Policies\Actor\Retailer::class,
     ];
 
     /**
@@ -44,19 +47,24 @@ class AuthServiceProvider extends ServiceProvider
 
         Auth::viaRequest('firebase', function (Request $request) use ($users) {
             $projectId = config('services.firebase.project_id');
-            $tenants = [
-                config('services.firebase.tenant_id_resellers'),
-                config('services.firebase.tenant_id_retailers'),
-            ];
+            $tenantIdReseller = config('services.firebase.tenant_id_resellers');
+            $tenantIdRetailer = config('services.firebase.tenant_id_retailers');
 
             $token = $request->bearerToken();
 
             if ($token) {
                 $payload = (new FirebaseToken($token))->verify($projectId);
 
-                if (in_array($payload->firebase->tenant, $tenants)) {
+                if ($tenantIdReseller == $payload->firebase->tenant) {
                     $user = $users->createFromFirebaseToken($payload);
+                    $user->tenant = Role::RESELLER;
                     $users->assertIsActingAs($user, Reseller::class);
+
+                    return $user;
+                } elseif ($tenantIdRetailer == $payload->firebase->tenant) {
+                    $user = $users->createFromFirebaseToken($payload);
+                    $user->tenant = Role::RETAILER;
+                    $users->assertIsActingAs($user, Retailer::class);
 
                     return $user;
                 }

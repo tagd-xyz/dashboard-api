@@ -3,7 +3,6 @@
 namespace App\Http\V1\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Tagd\Core\Models\User\Role;
 
 class Me extends JsonResource
 {
@@ -17,7 +16,6 @@ class Me extends JsonResource
         $actors = $this
             ->actors()
             ->map(function ($actor) {
-                // dd($actor->avatar_small_url);
                 return [
                     'type' => strtolower(basename(str_replace('\\', '/', get_class($actor)))),
                     'id' => $actor->id,
@@ -29,7 +27,7 @@ class Me extends JsonResource
                 ];
             })
             ->filter(function ($actor) {
-                return Role::RESELLER == $actor['type'];
+                return $this->tenant == $actor['type'];
             });
 
         return [

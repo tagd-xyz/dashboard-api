@@ -20,6 +20,7 @@
         "laravel/pint": "^1.2",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
+        "sentry/sentry-laravel": "^3.4",
         "tagd/core": "^0.0"
     },
     "require-dev": {
@@ -91,7 +92,10 @@
         "sort-packages": true,
         "gitlab-domains": [
             "gitlab.totallydev.com"
-        ]
+        ],
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true

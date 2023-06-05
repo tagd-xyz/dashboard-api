@@ -12,5 +12,24 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
 
     Route::middleware(['auth:api'])->group(function () {
         Route::get('me', 'Me@show');
+
+        Route::prefix('retailers')
+            ->group(function () {
+            Route::prefix('reporting')
+                ->namespace('\App\Http\V1\Controllers\Retailers\Reporting')
+                ->group(function () {
+                    Route::prefix('ref')
+                    ->group(function () {
+                        Route::get('brands', 'Ref@brands');
+                    });
+
+                    Route::prefix('tags-issued')
+                    ->group(function () {
+                        Route::get('list', 'TagsIssued@index');
+                        Route::get('graph', 'TagsIssued@graph');
+                    });
+            });
+        });
+
     });
 });

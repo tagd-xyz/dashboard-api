@@ -1,0 +1,4 @@
+description: A brands collection
+type: array
+items:
+  $ref: './Single.yml'

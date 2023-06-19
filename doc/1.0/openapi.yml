@@ -10,12 +10,25 @@ servers:
   - url: https://tagd-dash-api.uat.tclstaging.com/api/v1
     description: UAT
 
-
 paths:
+  /status:
+    get:
+      tags:
+        - status
+      summary: Get API status
+      description: Get API status
+      responses:
+        '200':
+          $ref: './responses/status/Status.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
   /me:
     get:
       tags:
         - me
+      security:
+        - bearer: []
       summary: Get current user
       description: Get current user
       responses:
@@ -27,6 +40,11 @@ paths:
           $ref: './responses/common/Unexpected.yml'
 
 components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
     meSingle.yml:
       $ref: './schemas/me/Single.yml'

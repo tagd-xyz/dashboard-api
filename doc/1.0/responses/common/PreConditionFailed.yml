@@ -1,0 +1,15 @@
+description: Pre condition failed.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 422
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Pre condition failed."

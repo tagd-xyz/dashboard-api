@@ -1,0 +1,21 @@
+description: The user's profile
+type: object
+properties:
+  id:
+    description: The user ID
+    type: string
+    example: 957f4527-018f-4e83-80e9-4a9c75d78538
+  email:
+    description: The user email
+    type: string
+    format: email
+    example: john@company.com
+  name:
+    description: The user name
+    type: string
+    example: John
+  actors:
+    description: The user actors
+    type: array
+    items:
+      $ref: './../common/Actor.yml'

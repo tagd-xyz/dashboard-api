@@ -1,0 +1,32 @@
+openapi: '3.0.3'
+info:
+  title: Tagd API for Reporting
+  version: '1.0'
+servers:
+  - url: http://dashboard.tagd.localhost:9137/api/v1/status
+    description: Local development
+  - url: https://tagd-dash-api.qa.tclstaging.com/api/v1
+    description: QA
+  - url: https://tagd-dash-api.uat.tclstaging.com/api/v1
+    description: UAT
+
+
+paths:
+  /me:
+    get:
+      tags:
+        - me
+      summary: Get current user
+      description: Get current user
+      responses:
+        '200':
+          $ref: './responses/me/Single.yml'
+        '204':
+          $ref: './responses/common/NoContent.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+components:
+  schemas:
+    meSingle.yml:
+      $ref: './schemas/me/Single.yml'

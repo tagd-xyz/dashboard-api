@@ -1,0 +1,9 @@
+description: The status of a tag
+type: string
+enum:
+  - inactive
+  - active
+  - resale
+  - transferred
+  - cancelled
+  - expired

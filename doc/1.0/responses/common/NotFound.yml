@@ -1,0 +1,15 @@
+description: Not Found.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 404
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Not Found."

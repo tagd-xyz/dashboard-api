@@ -1,0 +1,5 @@
+description: List of brands
+content:
+  application/json:
+    schema:
+      $ref: './../../../schemas/ref/brand/Collection.yml'

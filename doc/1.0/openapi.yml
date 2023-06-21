@@ -67,6 +67,14 @@ paths:
         - bearer: []
       summary: Get all tags issued for logged-in retailer
       description: Get all tags issued for logged-in retailer
+      operationId: addPet
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/retailers/tagsIssuedList/Filter.yml'
       responses:
         '200':
           $ref: './responses/retailers/tagsIssuedList/Collection.yml'
@@ -85,6 +93,13 @@ paths:
         - bearer: []
       summary: Get all tags issued for logged-in retailer
       description: Get all tags issued for logged-in retailer
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/retailers/tagsIssuedList/Filter.yml'
       responses:
         '200':
           $ref: './responses/retailers/tagsIssuedGraph/Collection.yml'

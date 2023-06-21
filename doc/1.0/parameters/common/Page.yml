@@ -1,0 +1,7 @@
+name: page
+in: path
+required: false
+description: The page number to retrieve. Default value is 1
+schema:
+  type: integer
+  example: 1

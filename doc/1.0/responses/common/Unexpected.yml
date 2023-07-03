@@ -1,0 +1,15 @@
+description: Unexpected server error.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 500
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Unexpected server error."

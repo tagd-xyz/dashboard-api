@@ -1,0 +1,15 @@
+description: Invalid request.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 412
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Invalid request."

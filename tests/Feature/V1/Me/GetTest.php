@@ -23,7 +23,6 @@ class GetTest extends Base
             ->actingAsAReseller($reseller)
             ->get(static::URL_ME)
             ->assertStatus(200)
-            ->dump()
             ->assertJsonStructure([
                 'status',
                 'data' => [

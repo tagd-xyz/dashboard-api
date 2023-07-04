@@ -23,16 +23,9 @@ create_dot_env () {
   prepare_env_file ../.env ./conf/.env.dev
 }
 
-prepare_composer_auth () {
-  cp ${COMPOSER_DIR}/auth.json.example ${COMPOSER_DIR}/auth.json
-  read_token=$(vault read -field=read_token secret/dev/tagd/packages)
-  sed -i "s/<read_token>/${read_token}/g" ${COMPOSER_DIR}/auth.json
-}
-
 install_docker_toolkit
 create_dot_env
 create_docker_network "dev"
-prepare_composer_auth
 
 # create packages directory if it doesn't exist
 if [[ ! -d ${PACKAGES_DIR} ]]; then

@@ -94,7 +94,8 @@ prepare:qa:
     - if: '$CI_COMMIT_REF_NAME =~ /^qa.*/'
       when: on_success
   variables:
-    COMPOSER_INSTALL_NO_DEV: 0
+    COMPOSER_INSTALL_NO_DEV: 1
+    PACKAGE_CORE_VERSION: dev-qa
 
 prepare:uat:
   extends: .prepare
@@ -105,6 +106,7 @@ prepare:uat:
       when: on_success
   variables:
     COMPOSER_INSTALL_NO_DEV: 1
+    PACKAGE_CORE_VERSION: dev-uat
 
 .build:
   stage: build

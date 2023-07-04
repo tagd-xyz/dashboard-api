@@ -1,0 +1,15 @@
+description: Unauthorized access error.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 401
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Access Unauthorized."

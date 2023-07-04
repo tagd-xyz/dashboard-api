@@ -1,0 +1,12 @@
+description: A single tag stats
+type: object
+properties:
+  total:
+    description: The total of tags issued
+    type: number
+    example: 10
+  datetime_interval:
+    description: The interval of time
+    type: string
+    format: date-time
+    example: "2023-06-19T14:36:33.164758Z"

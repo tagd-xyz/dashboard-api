@@ -2,14 +2,17 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "Tagd Affiliates API",
-    "keywords": ["tagd", "laravel"],
+    "keywords": [
+        "tagd",
+        "laravel"
+    ],
     "license": "MIT",
-    "repositories": {
-        "gitlab.totallydev.com": {
-            "type": "composer",
-            "url": "https://gitlab.totallydev.com/api/v4/group/1406/-/packages/composer/packages.json"
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@gitlab.totallydev.com:tagd/packages/core.git"
         }
-     },
+    ],
     "require": {
         "php": "^8.1",
         "aws/aws-sdk-php": "^3.258",
@@ -35,17 +38,13 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/",
-            "Tagd\\Core\\" : "vendor/tagd/core/src/code/",
-            "Tagd\\Core\\Database\\Seeders\\": "vendor/tagd/core/src/database/seeders/",
-            "Tagd\\Core\\Database\\Factories\\": "vendor/tagd/core/src/database/factories/",
-            "Tagd\\Core\\Tests\\": "vendor/tagd/core/tests/"
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "Tagd\\Core\\" : "/packages/core/src/code/",
+            "Tagd\\Core\\": "/packages/core/src/code/",
             "Tagd\\Core\\Database\\Seeders\\": "/packages/core/src/database/seeders/",
             "Tagd\\Core\\Database\\Factories\\": "/packages/core/src/database/factories/",
             "Tagd\\Core\\Tests\\": "/packages/core/tests/"
@@ -69,12 +68,18 @@
             "[ -d \"/packages/core\" ] && rm -rf vendor/tagd/core || echo \"using vendor tagd/core\""
         ],
         "test": [
-            "vendor/bin/phpunit"
+            "touch tagd.sqlite && vendor/bin/phpunit"
+        ],
+        "test-coverage-html": [
+            "touch tagd.sqlite && XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html tests-coverage/"
+        ],
+        "test-coverage-text": [
+            "touch tagd.sqlite && XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text --colors=never --coverage-cobertura=coverage.cobertura.xml"
         ],
         "pint": [
             "vendor/bin/pint"
         ],
-        "pint_check": [
+        "pint-check": [
             "vendor/bin/pint --test"
         ]
     },
@@ -90,9 +95,6 @@
         "optimize-autoloader": true,
         "preferred-install": "dist",
         "sort-packages": true,
-        "gitlab-domains": [
-            "gitlab.totallydev.com"
-        ],
         "allow-plugins": {
             "php-http/discovery": true
         }

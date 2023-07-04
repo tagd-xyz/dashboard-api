@@ -84,9 +84,9 @@ class TimeToTransfer extends Controller
         $raw = "json_unquote(json_extract(`stats`, '$.\"ttt\".\"n" . $filterTransfersCount . "\"')) div 1440";
 
         $data = TagdModel::select(
-                \DB::raw($raw . ' as t'),
-                \DB::raw('count(*) as total')
-            )
+            \DB::raw($raw . ' as t'),
+            \DB::raw('count(*) as total')
+        )
             ->whereNull('parent_id')
             ->whereBetween('created_at', [
                 $request->get(IndexRequest::DATE_FROM),

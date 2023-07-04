@@ -110,7 +110,7 @@ class TagsIssued extends Controller
         $data = TagdModel::query()
             ->selectRaw(
                 str_replace("\n", '',
-                "DATE_ADD(
+                    "DATE_ADD(
                     '$since',
                     INTERVAL FLOOR(
                       TIMESTAMPDIFF(MINUTE, '$since', created_at) / $minutes

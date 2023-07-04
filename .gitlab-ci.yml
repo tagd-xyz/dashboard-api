@@ -20,7 +20,7 @@ stages:
   - build
   - deploy
 
-unit_test:
+test:
   stage: test
   image: composer:latest
   extends:
@@ -31,6 +31,25 @@ unit_test:
     - ./build/scripts/test.sh
   rules:
     - if: $CI_COMMIT_BRANCH
+
+# https://docs.gitlab.com/ee/ci/testing/test_coverage_visualization.html
+test-coverage:
+  stage: test
+  image: composer:latest
+  extends:
+    - .shared_runners
+  before_script:
+    - ./build/scripts/install_dtk.sh
+  script:
+    - ./build/scripts/test_coverage.sh
+  rules:
+    - if: '$CI_COMMIT_BRANCH'
+  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.cobertura.xml
 
 quality:
   stage: test
@@ -75,7 +94,8 @@ prepare:qa:
     - if: '$CI_COMMIT_REF_NAME =~ /^qa.*/'
       when: on_success
   variables:
-    COMPOSER_INSTALL_NO_DEV: 0
+    COMPOSER_INSTALL_NO_DEV: 1
+    PACKAGE_CORE_VERSION: dev-qa
 
 prepare:uat:
   extends: .prepare
@@ -86,6 +106,7 @@ prepare:uat:
       when: on_success
   variables:
     COMPOSER_INSTALL_NO_DEV: 1
+    PACKAGE_CORE_VERSION: dev-uat
 
 .build:
   stage: build

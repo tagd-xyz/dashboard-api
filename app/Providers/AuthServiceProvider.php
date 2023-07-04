@@ -53,20 +53,26 @@ class AuthServiceProvider extends ServiceProvider
             $token = $request->bearerToken();
 
             if ($token) {
-                $payload = (new FirebaseToken($token))->verify($projectId);
+                try {
+                    $payload = (new FirebaseToken($token))->verify($projectId);
 
-                if ($tenantIdReseller == $payload->firebase->tenant) {
-                    $user = $users->createFromFirebaseToken($payload);
-                    $user->tenant = Role::RESELLER;
-                    $users->assertIsActingAs($user, Reseller::class);
+                    if ($tenantIdReseller == $payload->firebase->tenant) {
+                        $user = $users->createFromFirebaseToken($payload);
+                        $user->tenant = Role::RESELLER;
+                        $users->assertIsActingAs($user, Reseller::class);
 
-                    return $user;
-                } elseif ($tenantIdRetailer == $payload->firebase->tenant) {
-                    $user = $users->createFromFirebaseToken($payload);
-                    $user->tenant = Role::RETAILER;
-                    $users->assertIsActingAs($user, Retailer::class);
+                        return $user;
+                    } elseif ($tenantIdRetailer == $payload->firebase->tenant) {
+                        $user = $users->createFromFirebaseToken($payload);
+                        $user->tenant = Role::RETAILER;
+                        $users->assertIsActingAs($user, Retailer::class);
 
-                    return $user;
+                        return $user;
+                    }
+                } catch (\Exception $e) {
+                    \Log::error('Invalid bearer token: ' . $e->getMessage());
+
+                    return null;
                 }
             }
 

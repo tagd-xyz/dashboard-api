@@ -8,5 +8,5 @@ install_composer
 
 gitlabci_composer_install
 
-# composer run-script pint_check
+composer run-script pint-check
 

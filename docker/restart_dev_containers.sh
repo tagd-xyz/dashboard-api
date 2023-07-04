@@ -5,7 +5,7 @@ PACKAGES_DIR=../../../packages
 COMPOSER_DIR=..
 
 install_docker_toolkit () {
-  export DTK_VERSION=1.7.11
+  export DTK_VERSION=1.7.14
   export DTK_HOME=~/.dtk/${DTK_VERSION}
   curl -s https://dtk.totallydev.com/install.sh | bash 2>/dev/null
   if [[ ! -d ${DTK_HOME} ]]; then

@@ -3,7 +3,7 @@ info:
   title: Tagd API for Reporting
   version: '1.0'
 servers:
-  - url: http://dashboard.tagd.localhost:9137/api/v1/status
+  - url: http://dashboard.tagd.localhost:9137/api/v1
     description: Local development
   - url: https://tagd-dash-api.qa.tclstaging.com/api/v1
     description: QA

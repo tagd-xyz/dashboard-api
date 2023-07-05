@@ -12,7 +12,7 @@ variables:
 
 .shared_runners:
   tags:
-    - totally-uat-k8s
+    - totally-ci
 
 stages:
   - test
@@ -20,7 +20,7 @@ stages:
   - build
   - deploy
 
-unit_test:
+test:
   stage: test
   image: composer:latest
   extends:
@@ -31,6 +31,25 @@ unit_test:
     - ./build/scripts/test.sh
   rules:
     - if: $CI_COMMIT_BRANCH
+
+# https://docs.gitlab.com/ee/ci/testing/test_coverage_visualization.html
+test-coverage:
+  stage: test
+  image: composer:latest
+  extends:
+    - .shared_runners
+  before_script:
+    - ./build/scripts/install_dtk.sh
+  script:
+    - ./build/scripts/test_coverage.sh
+  rules:
+    - if: '$CI_COMMIT_BRANCH'
+  coverage: '/^\s*Lines:\s*\d+.\d+\%/'
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.cobertura.xml
 
 quality:
   stage: test
@@ -75,7 +94,8 @@ prepare:qa:
     - if: '$CI_COMMIT_REF_NAME =~ /^qa.*/'
       when: on_success
   variables:
-    COMPOSER_INSTALL_NO_DEV: 0
+    COMPOSER_INSTALL_NO_DEV: 1
+    PACKAGE_CORE_VERSION: dev-qa
 
 prepare:uat:
   extends: .prepare
@@ -86,17 +106,20 @@ prepare:uat:
       when: on_success
   variables:
     COMPOSER_INSTALL_NO_DEV: 1
+    PACKAGE_CORE_VERSION: dev-uat
 
 .build:
   stage: build
-  image: docker:18-git
+  image: docker:20.10.16
   extends:
     - .shared_runners
   variables:
-    DOCKER_HOST: tcp://127.0.0.1:2375
-    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: "/certs"
+    DOCKER_TLS_VERIFY: 1
+    DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
+    DOCKER_HOST: tcp://docker:237
   services:
-    - docker:18-dind
+    - docker:20.10.16-dind
   before_script:
     - ./build/scripts/install_dtk.sh
   rules:

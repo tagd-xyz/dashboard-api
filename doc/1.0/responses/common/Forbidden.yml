@@ -1,0 +1,15 @@
+description: Forbidden access error.
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: number
+          example: 403
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              example: "Access forbidden."

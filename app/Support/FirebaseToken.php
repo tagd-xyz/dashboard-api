@@ -52,13 +52,11 @@ class FirebaseToken
     {
         $keys = $this->getPublicKeys();
 
-        // dd($keys);
-
         $keys = array_map(function ($key) {
             return new Key($key, self::ALLOWED_ALGOS[0]);
         }, $keys);
 
-        $payload = JWT::decode($this->token, $keys, self::ALLOWED_ALGOS);
+        $payload = JWT::decode($this->token, $keys);
 
         $this->validatePayload($payload, $projectId);
 

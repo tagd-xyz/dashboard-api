@@ -1,0 +1,189 @@
+openapi: '3.0.3'
+info:
+  title: Tagd API for Reporting
+  version: '1.0'
+servers:
+  - url: http://dashboard.tagd.localhost:9137/api/v1
+    description: Local development
+  - url: https://tagd-dash-api.qa.tclstaging.com/api/v1
+    description: QA
+  - url: https://tagd-dash-api.uat.tclstaging.com/api/v1
+    description: UAT
+
+paths:
+  /status:
+    get:
+      tags:
+        - status
+      summary: Get API status
+      description: Get API status
+      operationId: getStatus
+      responses:
+        '200':
+          $ref: './responses/status/Status.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /me:
+    get:
+      tags:
+        - me
+      security:
+        - bearer: []
+      summary: Get current user
+      description: Get current user
+      operationId: getMe
+      responses:
+        '200':
+          $ref: './responses/me/Single.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /retailers/reporting/ref/brands:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      summary: Get all available brands for logged-in retailer
+      description: Get all available brands for logged-in retailer
+      operationId: getBrands
+      responses:
+        '200':
+          $ref: './responses/ref/brands/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /retailers/reporting/tags-issued/list:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      summary: Get all tags issued for logged-in retailer
+      description: Get all tags issued for logged-in retailer
+      operationId: getReportingTagsIssuedList
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/retailers/tagsIssuedList/Filter.yml'
+      responses:
+        '200':
+          $ref: './responses/retailers/tagsIssuedList/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /retailers/reporting/tags-issued/graph:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      summary: Get all tags issued for logged-in retailer
+      description: Get all tags issued for logged-in retailer
+      operationId: getReportingTagsIssuedGraph
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/retailers/tagsIssuedList/Filter.yml'
+      responses:
+        '200':
+          $ref: './responses/retailers/tagsIssuedGraph/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /retailers/reporting/time-to-transfer/list:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      summary: Get all tags issued for logged-in retailer
+      description: Get all tags issued for logged-in retailer
+      operationId: getReportingTimeToTransferList
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/retailers/tagsTimeToTransferList/Filter.yml'
+      responses:
+        '200':
+          $ref: './responses/retailers/tagsTimeToTransferList/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /retailers/reporting/time-to-transfer/graph:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      summary: Get all tags issued for logged-in retailer
+      description: Get all tags issued for logged-in retailer
+      operationId: getReportingTimeToTransferGraph
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/retailers/tagsTimeToTransferList/Filter.yml'
+      responses:
+        '200':
+          $ref: './responses/retailers/tagsTimeToTransferGraph/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    meSingle:
+      $ref: './schemas/me/Single.yml'
+    brandSingle:
+      $ref: './schemas/ref/brand/Single.yml'
+    brandCollection:
+      $ref: './schemas/ref/brand/Collection.yml'
+    retailersTagsIssuedListSingle:
+      $ref: './schemas/retailers/tagsIssuedList/Single.yml'
+    retailersTagsIssuedListCollection:
+      $ref: './schemas/retailers/tagsIssuedList/Collection.yml'
+    retailersTagsIssuedGraphSingle:
+      $ref: './schemas/retailers/tagsIssuedGraph/Single.yml'
+    retailersTagsIssuedGraphCollection:
+      $ref: './schemas/retailers/tagsIssuedGraph/Collection.yml'

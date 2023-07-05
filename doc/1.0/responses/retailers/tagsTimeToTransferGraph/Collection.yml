@@ -1,0 +1,5 @@
+description: List of tags time-to-transfer stats
+content:
+  application/json:
+    schema:
+      $ref: './../../../schemas/retailers/tagsTimeToTransferGraph/Collection.yml'

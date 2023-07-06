@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Facade;
 
+// override storage path
+$app->useStoragePath(env('APP_STORAGE', base_path() . '/storage'));
+
 return [
 
     /*

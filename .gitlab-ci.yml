@@ -117,7 +117,7 @@ prepare:uat:
     DOCKER_TLS_CERTDIR: "/certs"
     DOCKER_TLS_VERIFY: 1
     DOCKER_CERT_PATH: "$DOCKER_TLS_CERTDIR/client"
-    DOCKER_HOST: tcp://docker:237
+    DOCKER_HOST: tcp://docker:2376
   services:
     - docker:20.10.16-dind
   before_script:

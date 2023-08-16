@@ -30,6 +30,7 @@ class Single extends JsonResource
             'transferredAt' => $this->transferred_at,
             'status' => $this->status,
             'hasCustomerRegistered' => isset($this->consumer->role),
+            'trust' => $this->trust,
         ];
     }
 }

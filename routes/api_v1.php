@@ -34,6 +34,12 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                                 Route::get('list', 'TimeToTransfer@index');
                                 Route::get('graph', 'TimeToTransfer@graph');
                             });
+
+                        Route::prefix('fraud-report')
+                            ->group(function () {
+                                Route::get('list', 'FraudReport@index');
+                                Route::get('graph', 'FraudReport@graph');
+                            });
                     });
             });
 
@@ -51,6 +57,12 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                             ->group(function () {
                                 Route::get('list', 'TimeToTransfer@index');
                                 Route::get('graph', 'TimeToTransfer@graph');
+                            });
+
+                        Route::prefix('fraud-report')
+                            ->group(function () {
+                                Route::get('list', 'FraudReport@index');
+                                Route::get('graph', 'FraudReport@graph');
                             });
                     });
             });

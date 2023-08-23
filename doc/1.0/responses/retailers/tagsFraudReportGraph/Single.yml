@@ -1,0 +1,5 @@
+description: A single tag fraud-report stat
+content:
+  application/json:
+    schema:
+      $ref: './../../../schemas/retailers/tagsFraudReportGraph/Single.yml'

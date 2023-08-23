@@ -1,0 +1,5 @@
+description: List of tags issued
+content:
+  application/json:
+    schema:
+      $ref: './../../../schemas/retailers/tagsTimeToTransferList/Collection.yml'

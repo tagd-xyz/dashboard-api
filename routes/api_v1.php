@@ -40,6 +40,11 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                                 Route::get('list', 'FraudReport@index');
                                 Route::get('graph', 'FraudReport@graph');
                             });
+
+                        Route::prefix('currency')
+                            ->group(function () {
+                                Route::get('/', 'Currency@index');
+                            });
                     });
             });
 
@@ -64,8 +69,12 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                                 Route::get('list', 'FraudReport@index');
                                 Route::get('graph', 'FraudReport@graph');
                             });
+
+                        Route::prefix('currency')
+                            ->group(function () {
+                                Route::get('/', 'Currency@index');
+                            });
                     });
             });
-
     });
 });

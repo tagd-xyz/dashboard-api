@@ -1,0 +1,5 @@
+description: List of currency stats
+content:
+  application/json:
+    schema:
+      $ref: './../../../schemas/retailers/tagsCurrency/Collection.yml'

@@ -23,6 +23,21 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                                 Route::get('brands', 'Ref@brands');
                             });
 
+                        Route::prefix('avg-resale-value')
+                            ->group(function () {
+                                Route::get('graph', 'AvgResaleValue@graph');
+                            });
+
+                        Route::prefix('popular-types')
+                            ->group(function () {
+                                Route::get('list', 'PopularTypes@index');
+                            });
+
+                        Route::prefix('popular-resellers')
+                            ->group(function () {
+                                Route::get('list', 'PopularResellers@index');
+                            });
+
                         Route::prefix('tags-issued')
                             ->group(function () {
                                 Route::get('list', 'TagsIssued@index');
@@ -51,6 +66,21 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                         Route::prefix('ref')
                             ->group(function () {
                                 Route::get('brands', 'Ref@brands');
+                            });
+
+                        Route::prefix('avg-resale-value')
+                            ->group(function () {
+                                Route::get('graph', 'AvgResaleValue@graph');
+                            });
+
+                        Route::prefix('popular-types')
+                            ->group(function () {
+                                Route::get('list', 'PopularTypes@index');
+                            });
+
+                        Route::prefix('popular-resellers')
+                            ->group(function () {
+                                Route::get('list', 'PopularResellers@index');
                             });
 
                         Route::prefix('time-to-transfer')

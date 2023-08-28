@@ -28,6 +28,11 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                                 Route::get('graph', 'AvgResaleValue@graph');
                             });
 
+                        Route::prefix('return-rate')
+                            ->group(function () {
+                                Route::get('graph', 'ReturnRate@graph');
+                            });
+
                         Route::prefix('popular-types')
                             ->group(function () {
                                 Route::get('list', 'PopularTypes@index');

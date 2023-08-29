@@ -38,6 +38,11 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                                 Route::get('list', 'PopularTypes@index');
                             });
 
+                        Route::prefix('resale-frequency')
+                            ->group(function () {
+                                Route::get('list', 'ResaleFrequency@index');
+                            });
+
                         Route::prefix('popular-resellers')
                             ->group(function () {
                                 Route::get('list', 'PopularResellers@index');
@@ -81,6 +86,11 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                         Route::prefix('popular-types')
                             ->group(function () {
                                 Route::get('list', 'PopularTypes@index');
+                            });
+
+                        Route::prefix('resale-frequency')
+                            ->group(function () {
+                                Route::get('list', 'ResaleFrequency@index');
                             });
 
                         Route::prefix('popular-resellers')

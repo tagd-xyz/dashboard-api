@@ -9,7 +9,7 @@ use Illuminate\Support\Carbon;
 use Tagd\Core\Models\Item\Tagd as TagdModel;
 use Tagd\Core\Models\Item\TagdStatus;
 
-class PopularTypes extends Controller
+class ResaleFrequency extends Controller
 {
     protected function index(Request $request)
     {
@@ -25,8 +25,8 @@ class PopularTypes extends Controller
                 $query->where('status', TagdStatus::TRANSFERRED);
             })
             ->whereBetween('tagds.created_at', [$since, $until])
-            ->selectRaw('item_types.id, item_types.name, count(*) as total')
-            ->groupBy('items.type_id')
+            ->selectRaw('items.id, item_types.name as type, items.name, items.description, items.properties, count(*) as total')
+            ->groupBy('items.id')
             ->orderBy('total', 'desc')
             ->limit(5)
             ->get();

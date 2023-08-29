@@ -23,6 +23,31 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                                 Route::get('brands', 'Ref@brands');
                             });
 
+                        Route::prefix('avg-resale-value')
+                            ->group(function () {
+                                Route::get('graph', 'AvgResaleValue@graph');
+                            });
+
+                        Route::prefix('return-rate')
+                            ->group(function () {
+                                Route::get('graph', 'ReturnRate@graph');
+                            });
+
+                        Route::prefix('popular-types')
+                            ->group(function () {
+                                Route::get('list', 'PopularTypes@index');
+                            });
+
+                        Route::prefix('resale-frequency')
+                            ->group(function () {
+                                Route::get('list', 'ResaleFrequency@index');
+                            });
+
+                        Route::prefix('popular-resellers')
+                            ->group(function () {
+                                Route::get('list', 'PopularResellers@index');
+                            });
+
                         Route::prefix('tags-issued')
                             ->group(function () {
                                 Route::get('list', 'TagsIssued@index');
@@ -33,6 +58,17 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                             ->group(function () {
                                 Route::get('list', 'TimeToTransfer@index');
                                 Route::get('graph', 'TimeToTransfer@graph');
+                            });
+
+                        Route::prefix('fraud-report')
+                            ->group(function () {
+                                Route::get('list', 'FraudReport@index');
+                                Route::get('graph', 'FraudReport@graph');
+                            });
+
+                        Route::prefix('currency')
+                            ->group(function () {
+                                Route::get('/', 'Currency@index');
                             });
                     });
             });
@@ -47,13 +83,43 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                                 Route::get('brands', 'Ref@brands');
                             });
 
+                        Route::prefix('avg-resale-value')
+                            ->group(function () {
+                                Route::get('graph', 'AvgResaleValue@graph');
+                            });
+
+                        Route::prefix('popular-types')
+                            ->group(function () {
+                                Route::get('list', 'PopularTypes@index');
+                            });
+
+                        Route::prefix('resale-frequency')
+                            ->group(function () {
+                                Route::get('list', 'ResaleFrequency@index');
+                            });
+
+                        Route::prefix('popular-resellers')
+                            ->group(function () {
+                                Route::get('list', 'PopularResellers@index');
+                            });
+
                         Route::prefix('time-to-transfer')
                             ->group(function () {
                                 Route::get('list', 'TimeToTransfer@index');
                                 Route::get('graph', 'TimeToTransfer@graph');
                             });
+
+                        Route::prefix('fraud-report')
+                            ->group(function () {
+                                Route::get('list', 'FraudReport@index');
+                                Route::get('graph', 'FraudReport@graph');
+                            });
+
+                        Route::prefix('currency')
+                            ->group(function () {
+                                Route::get('/', 'Currency@index');
+                            });
                     });
             });
-
     });
 });

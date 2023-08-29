@@ -15,6 +15,10 @@ abstract class Base extends TestCase
 
     public const URL_ME = '/api/v1/me';
 
+    public const URL_RET_REP_CURRENCY = '/api/v1/retailers/reporting/currency';
+
+    public const URL_RES_REP_CURRENCY = '/api/v1/resellers/reporting/currency';
+
     /**
      * setUp any test
      */

@@ -1,0 +1,5 @@
+description: List of tags fraud-report stats
+content:
+  application/json:
+    schema:
+      $ref: './../../../schemas/retailers/tagsFraudReportList/Collection.yml'

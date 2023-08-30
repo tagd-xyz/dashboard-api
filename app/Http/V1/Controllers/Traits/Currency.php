@@ -129,12 +129,15 @@ trait Currency
      */
     private function avgMean(string $currency): float
     {
-        return $this
-            ->filteredTagds($currency)
-            ->selectRaw("avg(json_extract(`meta`, '$.price.amount')) as avgMean")
-            ->get()
-            ->pluck('avgMean')
-            ->first();
+        return round(
+            $this
+                ->filteredTagds($currency)
+                ->selectRaw("avg(json_extract(`meta`, '$.price.amount')) as avgMean")
+                ->get()
+                ->pluck('avgMean')
+                ->first(),
+            2
+        );
     }
 
     /**
@@ -171,12 +174,12 @@ trait Currency
      */
     private function stdDev(string $currency): float
     {
-        return floatval($this
+        return round(floatval($this
             ->filteredTagds($currency)
             ->selectRaw("stddev(json_extract(`meta`, '$.price.amount')) as stdDev")
             ->get()
             ->pluck('stdDev')
-            ->first());
+            ->first()), 2);
     }
 
     /**
@@ -216,7 +219,7 @@ trait Currency
         }
 
         return [
-            'value' => $percentile,
+            'value' => round($percentile, 2),
             'items' => $this->filteredTagds($currency)
                 ->where('meta->price->amount', '>=', $percentilePrev)
                 ->where('meta->price->amount', '<=', $percentile)

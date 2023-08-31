@@ -43,6 +43,129 @@ paths:
         '500':
           $ref: './responses/common/Unexpected.yml'
 
+  /resellers/reporting/ref/brands:
+    get:
+      tags:
+        - resellers
+      security:
+        - bearer: []
+      summary: Get all available brands for logged-in reseller
+      description: Get all available brands for logged-in reseller
+      operationId: getBrandsForReseller
+      responses:
+        '200':
+          $ref: './responses/ref/brands/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /resellers/reporting/time-to-transfer/list:
+    get:
+      tags:
+        - resellers
+      security:
+        - bearer: []
+      summary: Get all tags issued for logged-in reseller
+      description: Get all tags issued for logged-in reseller
+      operationId: getReportingTimeToTransferListForReseller
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/resellers/tagsTimeToTransferList/Filter.yml'
+      responses:
+        '200':
+          $ref: './responses/retailers/tagsTimeToTransferList/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /resellers/reporting/time-to-transfer/graph:
+    get:
+      tags:
+        - resellers
+      security:
+        - bearer: []
+      summary: Get all tags issued for logged-in reseller
+      description: Get all tags issued for logged-in reseller
+      operationId: getReportingTimeToTransferGraphForReseller
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/resellers/tagsTimeToTransferList/Filter.yml'
+      responses:
+        '200':
+          $ref: './responses/resellers/tagsTimeToTransferGraph/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /resellers/reporting/fraud-report/list:
+    get:
+      tags:
+        - resellers
+      security:
+        - bearer: []
+      summary: Get fraud report for logged-in reseller
+      description: Get fraud report for logged-in reseller
+      operationId: getReportingFraudReportListForReseller
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/resellers/tagsFraudReportList/Filter.yml'
+      responses:
+        '200':
+          $ref: './responses/resellers/tagsFraudReportList/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /resellers/reporting/fraud-report/graph:
+    get:
+      tags:
+        - resellers
+      security:
+        - bearer: []
+      summary: Get fraud report for logged-in reseller
+      description: Get fraud report for logged-in reseller
+      operationId: getReportingFraudReportGraphForReseller
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/resellers/tagsFraudReportList/Filter.yml'
+      responses:
+        '200':
+          $ref: './responses/resellers/tagsFraudReportGraph/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
   /retailers/reporting/ref/brands:
     get:
       tags:
@@ -51,7 +174,7 @@ paths:
         - bearer: []
       summary: Get all available brands for logged-in retailer
       description: Get all available brands for logged-in retailer
-      operationId: getBrands
+      operationId: getBrandsForRetailer
       responses:
         '200':
           $ref: './responses/ref/brands/Collection.yml'
@@ -96,7 +219,7 @@ paths:
         - bearer: []
       summary: Get all tags issued for logged-in retailer
       description: Get all tags issued for logged-in retailer
-      operationId: getReportingTagsIssuedGraph
+      operationId: getReportingTagsIssuedGraphForRetailer
       parameters:
         - $ref: './parameters/common/Page.yml'
         - $ref: './parameters/common/PerPage.yml'
@@ -122,7 +245,7 @@ paths:
         - bearer: []
       summary: Get all tags issued for logged-in retailer
       description: Get all tags issued for logged-in retailer
-      operationId: getReportingTimeToTransferList
+      operationId: getReportingTimeToTransferListForRetailer
       parameters:
         - $ref: './parameters/common/Page.yml'
         - $ref: './parameters/common/PerPage.yml'
@@ -148,7 +271,7 @@ paths:
         - bearer: []
       summary: Get all tags issued for logged-in retailer
       description: Get all tags issued for logged-in retailer
-      operationId: getReportingTimeToTransferGraph
+      operationId: getReportingTimeToTransferGraphForRetailer
       parameters:
         - $ref: './parameters/common/Page.yml'
         - $ref: './parameters/common/PerPage.yml'
@@ -159,6 +282,84 @@ paths:
       responses:
         '200':
           $ref: './responses/retailers/tagsTimeToTransferGraph/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /retailers/reporting/fraud-report/list:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      summary: Get fraud report for logged-in retailer
+      description: Get fraud report for logged-in retailer
+      operationId: getReportingFraudReportListForRetailer
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/retailers/tagsFraudReportList/Filter.yml'
+      responses:
+        '200':
+          $ref: './responses/retailers/tagsFraudReportList/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /retailers/reporting/fraud-report/graph:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      summary: Get fraud report for logged-in retailer
+      description: Get fraud report for logged-in retailer
+      operationId: getReportingFraudReportGraphForRetailer
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/retailers/tagsFraudReportList/Filter.yml'
+      responses:
+        '200':
+          $ref: './responses/retailers/tagsFraudReportGraph/Collection.yml'
+        '401':
+          $ref: './responses/common/Unauthorized.yml'
+        '403':
+          $ref: './responses/common/Forbidden.yml'
+        '500':
+          $ref: './responses/common/Unexpected.yml'
+
+  /retailers/reporting/currency:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      summary: Get currency stats for logged-in retailer
+      description: Get currency stats for logged-in retailer
+      operationId: getReportingCurrencyForRetailer
+      parameters:
+        - $ref: './parameters/common/Page.yml'
+        - $ref: './parameters/common/PerPage.yml'
+        - $ref: './parameters/common/Direction.yml'
+        - $ref: './parameters/common/DateFrom.yml'
+        - $ref: './parameters/common/DateTo.yml'
+        - $ref: './parameters/retailers/tagsCurrency/Filter.yml'
+      responses:
+        '200':
+          $ref: './responses/retailers/tagsCurrency/Collection.yml'
         '401':
           $ref: './responses/common/Unauthorized.yml'
         '403':

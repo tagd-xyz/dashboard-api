@@ -1,0 +1,14 @@
+name: filter
+in: path
+required: false
+description: |
+              A json string describing the fields and values to filter by.
+              Format: {"field":"value"} or {"field":["value1","value2"]}.
+
+              The available fields to filter by are:
+              "brands".
+
+schema:
+  type: string
+  format: json
+  example: {"brands":["adidas", "zara"]}

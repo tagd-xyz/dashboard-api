@@ -1,0 +1,4 @@
+description: A stats collection
+type: array
+items:
+  $ref: './Single.yml'

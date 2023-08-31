@@ -21,6 +21,7 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                         Route::prefix('ref')
                             ->group(function () {
                                 Route::get('brands', 'Ref@brands');
+                                Route::get('countries', 'Ref@countries');
                             });
 
                         Route::prefix('avg-resale-value')
@@ -68,7 +69,8 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
 
                         Route::prefix('currency')
                             ->group(function () {
-                                Route::get('/', 'Currency@index');
+                                Route::get('/list', 'Currency@index');
+                                Route::get('/graph', 'Currency@graph');
                             });
                     });
             });
@@ -81,6 +83,7 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                         Route::prefix('ref')
                             ->group(function () {
                                 Route::get('brands', 'Ref@brands');
+                                Route::get('countries', 'Ref@countries');
                             });
 
                         Route::prefix('avg-resale-value')
@@ -117,7 +120,8 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
 
                         Route::prefix('currency')
                             ->group(function () {
-                                Route::get('/', 'Currency@index');
+                                Route::get('/list', 'Currency@index');
+                                Route::get('/graph', 'Currency@graph');
                             });
                     });
             });

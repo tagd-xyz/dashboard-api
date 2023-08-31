@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
+use Tagd\Core\Models\Actor\Admin;
 use Tagd\Core\Models\Actor\Reseller;
 use Tagd\Core\Models\Actor\Retailer;
 use Tagd\Core\Models\Item\Tagd as TagdModel;
@@ -27,6 +28,10 @@ trait Currency
 
     protected $filterDateTo = null;
 
+    protected $filterRetailers = null;
+
+    protected $filterResellers = null;
+
     /**
      * Determine if the current user is acting as a retailer.
      */
@@ -41,6 +46,14 @@ trait Currency
     protected function isActingAsReseller(): bool
     {
         return $this->actingAs instanceof Reseller;
+    }
+
+    /**
+     * Determine if the current user is acting as an admin.
+     */
+    protected function isActingAsAdmin(): bool
+    {
+        return $this->actingAs instanceof Admin;
     }
 
     /**
@@ -65,6 +78,14 @@ trait Currency
                 })
                 ->when($this->isActingAsReseller(), function (EloquentBuilder $query) {
                     $query->where('reseller_id', $this->actingAs->id);
+                })
+                ->when(! is_null($this->filterResellers), function (EloquentBuilder $query) {
+                    $query->whereIn('reseller_id', $this->filterResellers);
+                })
+                ->when(! is_null($this->filterRetailers), function (EloquentBuilder $query) {
+                    $query->whereHas('item', function (EloquentBuilder $query) {
+                        $query->whereIn('retailer_id', $this->filterRetailers);
+                    });
                 })
                 ->when(! is_null($this->filterModel), function (EloquentBuilder $query) {
                     $query->whereHas('item', function ($query) {

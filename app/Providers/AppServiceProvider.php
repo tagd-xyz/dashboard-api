@@ -38,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
             Role::RETAILER => 'Tagd\Core\Models\Actor\Retailer',
             Role::RESELLER => 'Tagd\Core\Models\Actor\Reseller',
             Role::CONSUMER => 'Tagd\Core\Models\Actor\Consumer',
+            Role::ADMIN => 'Tagd\Core\Models\Actor\Admin',
         ]);
 
         // Log::withContext([

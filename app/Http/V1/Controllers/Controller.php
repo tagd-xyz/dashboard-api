@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
+use Tagd\Core\Models\Actor\Admin;
 use Tagd\Core\Models\Actor\Consumer;
 use Tagd\Core\Models\Actor\Reseller;
 use Tagd\Core\Models\Actor\Retailer;
@@ -18,7 +19,7 @@ class Controller extends BaseController
         DispatchesJobs,
         ValidatesRequests;
 
-    protected function actingAs(Request $request): Retailer|Reseller|Consumer
+    protected function actingAs(Request $request): Retailer|Reseller|Consumer|Admin
     {
         $user = Auth::user();
 

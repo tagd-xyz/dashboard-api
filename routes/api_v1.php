@@ -125,5 +125,17 @@ Route::namespace('\App\Http\V1\Controllers')->group(function () {
                             });
                     });
             });
+
+        Route::prefix('admins')
+            ->group(function () {
+                Route::prefix('reporting')
+                    ->namespace('\App\Http\V1\Controllers\Admins\Reporting')
+                    ->group(function () {
+                        Route::prefix('currency')
+                            ->group(function () {
+                                Route::get('/list', 'Currency@index');
+                            });
+                    });
+            });
     });
 });

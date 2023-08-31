@@ -35,5 +35,6 @@ return [
         'project_id' => ENV('FIREBASE_PROJECT_ID'),
         'tenant_id_resellers' => ENV('FIREBASE_TENANT_ID_RESELLERS', 'resellers'),
         'tenant_id_retailers' => ENV('FIREBASE_TENANT_ID_RETAILERS', 'retailers'),
+        'tenant_id_admins' => ENV('FIREBASE_TENANT_ID_ADMINS', 'admins'),
     ],
 ];

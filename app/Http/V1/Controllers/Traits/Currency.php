@@ -108,7 +108,7 @@ trait Currency
             ->selectRaw("min(json_extract(`meta`, '$.price.amount')) as min")
             ->get()
             ->pluck('min')
-            ->first();
+            ->first() ?? 0.0;
     }
 
     /**
@@ -121,7 +121,7 @@ trait Currency
             ->selectRaw("max(json_extract(`meta`, '$.price.amount')) as max")
             ->get()
             ->pluck('max')
-            ->first();
+            ->first() ?? 0.0;
     }
 
     /**
@@ -135,7 +135,7 @@ trait Currency
                 ->selectRaw("avg(json_extract(`meta`, '$.price.amount')) as avgMean")
                 ->get()
                 ->pluck('avgMean')
-                ->first(),
+                ->first() ?? 0.0,
             2
         );
     }
@@ -166,7 +166,7 @@ trait Currency
             ->whereRaw('tagds.row_number IN ( FLOOR((@total_rows+1)/2), FLOOR((@total_rows+2)/2) )')
             ->get()
             ->pluck('avg_median')
-            ->first();
+            ->first() ?? 0.0;
     }
 
     /**
@@ -179,7 +179,7 @@ trait Currency
             ->selectRaw("stddev(json_extract(`meta`, '$.price.amount')) as stdDev")
             ->get()
             ->pluck('stdDev')
-            ->first()), 2);
+            ->first() ?? 0.0), 2);
     }
 
     /**
@@ -203,6 +203,13 @@ trait Currency
         // $quantile = min(100, max(0, $quantile));
 
         $array = array_values($list);
+
+        if (empty($array)) {
+            return [
+                'value' => 0.0,
+                'items' => 0,
+            ];
+        }
 
         // sort($array);
         $index = ($quantile / 100) * (count($list) - 1);

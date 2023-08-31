@@ -6,6 +6,7 @@ use App\Support\FirebaseToken;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Tagd\Core\Models\Actor\Admin;
 use Tagd\Core\Models\Actor\Reseller;
 use Tagd\Core\Models\Actor\Retailer;
 use Tagd\Core\Models\User\Role;
@@ -25,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
         \Tagd\Core\Models\Resale\AccessRequest::class => \App\Policies\Resale\AccessRequest::class,
         \Tagd\Core\Models\Actor\Reseller::class => \App\Policies\Actor\Reseller::class,
         \Tagd\Core\Models\Actor\Retailer::class => \App\Policies\Actor\Retailer::class,
+        \Tagd\Core\Models\Actor\Admin::class => \App\Policies\Actor\Admin::class,
     ];
 
     /**
@@ -49,6 +51,7 @@ class AuthServiceProvider extends ServiceProvider
             $projectId = config('services.firebase.project_id');
             $tenantIdReseller = config('services.firebase.tenant_id_resellers');
             $tenantIdRetailer = config('services.firebase.tenant_id_retailers');
+            $tenantIdAdmin = config('services.firebase.tenant_id_admins');
 
             $token = $request->bearerToken();
 
@@ -66,6 +69,12 @@ class AuthServiceProvider extends ServiceProvider
                         $user = $users->createFromFirebaseToken($payload);
                         $user->tenant = Role::RETAILER;
                         $users->assertIsActingAs($user, Retailer::class);
+
+                        return $user;
+                    } elseif ($tenantIdAdmin == $payload->firebase->tenant) {
+                        $user = $users->createFromFirebaseToken($payload);
+                        $user->tenant = Role::ADMIN;
+                        $users->assertIsActingAs($user, Admin::class);
 
                         return $user;
                     }

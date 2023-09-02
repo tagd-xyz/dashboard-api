@@ -244,6 +244,175 @@ components:
           format: date-time
           example: "2023-06-19T14:36:33.164758Z"
 
+    # -------------------------------------------------------------------------
+    # retailers schemas
+    # -------------------------------------------------------------------------
+
+    retailersTagdsIssuedListCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/retailersTagdsIssuedListSingle'
+
+    retailersTagdsIssuedListSingle:
+      description: A single tag
+      type: object
+      properties:
+        id:
+          description: The tag ID
+          type: string
+          example: 957f4527-018f-4e83-80e9-4a9c75d78538
+        slug:
+          description: The tag slug
+          type: string
+          example: 35CJ-5W8H-4VHP-F3C4
+        isRoot:
+          description: Whether the tag is the root node or not
+          type: boolean
+          example: true
+        meta:
+          description: The tag meta
+          type: object
+        stats:
+          description: The tag stats
+          type: object
+        createdAt:
+          description: The tag creation date
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+        activatedAt:
+          description: The tag activation date
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+        expiredAt:
+          description: The tag expiration date
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+        transferredAt:
+          description: The tag transfer date
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+        isActive:
+          description: Whether the tag is active or not
+          type: boolean
+          example: true
+        isExpired:
+          description: Whether the tag is expired or not
+          type: boolean
+          example: false
+        isTransferred:
+          description: Whether the tag is transferred or not
+          type: boolean
+          example: true
+        hasCustomerRegistered:
+          description: Whether the tag has a customer registered or not
+          type: boolean
+          example: true
+
+    retailersTagdsIssuedGraphCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/retailersTagdsIssuedGraphSingle'
+
+    retailersTagdsIssuedGraphSingle:
+      description: A single tag stats
+      type: object
+      properties:
+        total:
+          description: The total of tags issued
+          type: number
+          example: 10
+        datetime_interval:
+          description: The interval of time
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+
+
+    retailersTagdsTimeToTransferListCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/retailersTagdsTimeToTransferListSingle'
+
+    retailersTagdsTimeToTransferListSingle:
+      type: object
+      properties:
+        id:
+          description: The tag ID
+          type: string
+          example: 957f4527-018f-4e83-80e9-4a9c75d78538
+        slug:
+          description: The tag slug
+          type: string
+          example: 35CJ-5W8H-4VHP-F3C4
+        isRoot:
+          description: Whether the tag is the root node or not
+          type: boolean
+          example: true
+        meta:
+          description: The tag meta
+          type: object
+        stats:
+          description: The tag stats
+          type: object
+        createdAt:
+          description: The tag creation date
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+        activatedAt:
+          description: The tag activation date
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+        expiredAt:
+          description: The tag expiration date
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+        transferredAt:
+          description: The tag transfer date
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+        isActive:
+          description: Whether the tag is active or not
+          type: boolean
+          example: true
+        isExpired:
+          description: Whether the tag is expired or not
+          type: boolean
+          example: false
+        isTransferred:
+          description: Whether the tag is transferred or not
+          type: boolean
+          example: true
+        hasCustomerRegistered:
+          description: Whether the tag has a customer registered or not
+          type: boolean
+          example: true
+
+    retailersTagdsTimeToTransferGraphCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/retailersTagdsTimeToTransferGraphSingle'
+
+    retailersTagdsTimeToTransferGraphSingle:
+      type: object
+      properties:
+        total:
+          description: The total of tags issued
+          type: number
+          example: 10
+        t:
+          description: The interval of time
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+
   # ===========================================================================
   # RESPONSES
   # ===========================================================================
@@ -304,6 +473,7 @@ components:
                   message:
                     type: string
                     example: "Access forbidden."
+
     # -------------------------------------------------------------------------
     # status responses
     # -------------------------------------------------------------------------
@@ -327,6 +497,7 @@ components:
                     type: string
                     format: date-time
                     example: "2023-06-19T14:36:33.164758Z"
+
     # -------------------------------------------------------------------------
     # me responses
     # -------------------------------------------------------------------------
@@ -337,6 +508,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/meSingle'
+
     # -------------------------------------------------------------------------
     # ref responses
     # -------------------------------------------------------------------------
@@ -347,8 +519,9 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/refBrandCollection'
+
     # -------------------------------------------------------------------------
-    # reseller responses
+    # resellers responses
     # -------------------------------------------------------------------------
 
     resellersTagdsFraudReportListCollection:
@@ -379,6 +552,38 @@ components:
           schema:
             $ref: '#/components/schemas/resellersTagdsTimeToTransferGraphCollection'
 
+    # -------------------------------------------------------------------------
+    # retailers responses
+    # -------------------------------------------------------------------------
+
+    retailersTagdsIssuedListCollection:
+      description: 'List of tagds issued'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/retailersTagdsIssuedListCollection'
+
+    retailersTagdsIssuedGraphCollection:
+      description: 'List of tagds issued to render a graph'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/retailersTagdsIssuedGraphCollection'
+
+    retailersTagdsTimeToTransferListCollection:
+      description: 'List of tagds'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/retailersTagdsTimeToTransferListCollection'
+
+    retailersTagdsTimeToTransferGraphCollection:
+      description: 'List of tagds to render a graph'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/retailersTagdsTimeToTransferGraphCollection'
+
   # ===========================================================================
   # PARAMETERS
   # ===========================================================================
@@ -391,7 +596,7 @@ components:
 
     commonPage:
       name: page
-      in: path
+      in: query
       required: true
       description: 'The page number to retrieve. Default value is 1'
       schema:
@@ -400,7 +605,7 @@ components:
 
     commonPerPage:
       name: perPage
-      in: path
+      in: query
       required: true
       description: 'The number of items to retrieve. Default value is 25'
       schema:
@@ -409,7 +614,7 @@ components:
 
     commonDirection:
       name: direction
-      in: path
+      in: query
       required: true
       description: |
         Sort order:
@@ -422,7 +627,7 @@ components:
 
     commonDateFrom:
       name: dateFrom
-      in: path
+      in: query
       required: true
       description: 'The date from which to retrieve the data. Format YYYY-MM-DD'
       schema:
@@ -432,7 +637,7 @@ components:
 
     commonDateTo:
       name: dateTo
-      in: path
+      in: query
       required: true
       description: 'The date to which to retrieve the data. Format YYYY-MM-DD'
       schema:
@@ -446,7 +651,7 @@ components:
 
     resellersTagdsTimeToTransferListFilter:
       name: filter
-      in: path
+      in: query
       required: true
       description: |
         A json string describing the fields and values to filter by.
@@ -461,7 +666,7 @@ components:
 
     resellersTagdsFraudReportListFilter:
       name: filter
-      in: path
+      in: query
       required: true
       description: |
         A json string describing the fields and values to filter by.
@@ -473,6 +678,44 @@ components:
         type: string
         format: json
         example: {"brands":["adidas", "zara"]}
+
+    # ---------------------------------------------------------------------------
+    # retailers parameters
+    # ---------------------------------------------------------------------------
+
+    retailersTagdsIssuedListFilter:
+      name: filter
+      in: query
+      required: true
+      description: |
+        A json string describing the fields and values to filter by.
+        Format: {"field":"value"} or {"field":["value1","value2"]}.
+
+        The available fields to filter by are:
+        "status", "transfersCount", "brands" and "customerRegistered".
+
+        * Possible values for "status" are "active" and "inactive".
+        * Possible values for "transfersCount" are "one", "two", "three", "four" and "five_or_more".
+      schema:
+        type: string
+        format: json
+        example: {"brands":["adidas", "zara"],"status":"active"}
+
+    retailersTagdsTimeToTransferListFilter:
+      name: filter
+      in: query
+      required: true
+      description: |
+        A json string describing the fields and values to filter by.
+        Format: {"field":"value"} or {"field":["value1","value2"]}.
+
+        The available fields to filter by are:
+        "transfersCount", and "brands".
+      schema:
+        type: string
+        format: json
+        example: {"brands":["adidas", "zara"],"transfersCount":2}
+
 
   # ---------------------------------------------------------------------------
   # security schemas
@@ -604,7 +847,7 @@ paths:
         - resellers
       security:
         - bearer: []
-      description: 'Get list with all tags issued for current reseller'
+      description: 'Get list with all tagds issued for current reseller'
       operationId: getResellerReportingTimeToTransferList
       parameters:
         - $ref: '#/components/parameters/commonPage'
@@ -629,7 +872,7 @@ paths:
         - resellers
       security:
         - bearer: []
-      description: 'Get graph with all tags issued for current reseller'
+      description: 'Get graph with all tagds issued for current reseller'
       operationId: getResellerReportingTimeToTransferGraph
       parameters:
         - $ref: '#/components/parameters/resellersTagdsTimeToTransferListFilter'
@@ -666,7 +909,97 @@ paths:
         '500':
           $ref: '#/components/responses/commonUnexpectedError'
 
+  /retailers/reporting/tags-issued/list:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      description: 'Get list with all tagds issued for current retailer'
+      operationId: getRetailerReportingTagdsIssuedList
+      parameters:
+        - $ref: '#/components/parameters/commonPage'
+        - $ref: '#/components/parameters/commonPerPage'
+        - $ref: '#/components/parameters/commonDirection'
+        - $ref: '#/components/parameters/commonDateFrom'
+        - $ref: '#/components/parameters/commonDateTo'
+        - $ref: '#/components/parameters/retailersTagdsIssuedListFilter'
+      responses:
+        '200':
+          $ref: '#/components/responses/retailersTagdsIssuedListCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
 
+  /retailers/reporting/tags-issued/graph:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      description: 'Get graph with all tagds issued for current retailer'
+      operationId: getRetailerReportingTagdsIssuedGraph
+      parameters:
+        - $ref: '#/components/parameters/commonPage'
+        - $ref: '#/components/parameters/commonPerPage'
+        - $ref: '#/components/parameters/commonDirection'
+        - $ref: '#/components/parameters/commonDateFrom'
+        - $ref: '#/components/parameters/commonDateTo'
+        - $ref: '#/components/parameters/retailersTagdsIssuedListFilter'
+      responses:
+        '200':
+          $ref: '#/components/responses/retailersTagdsIssuedGraphCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
 
+  /retailers/reporting/time-to-transfer/list:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      description: 'Get list with all tagds issued for current retailer'
+      operationId: getRetailerReportingTimeToTransferList
+      parameters:
+        - $ref: '#/components/parameters/commonPage'
+        - $ref: '#/components/parameters/commonPerPage'
+        - $ref: '#/components/parameters/commonDirection'
+        - $ref: '#/components/parameters/commonDateFrom'
+        - $ref: '#/components/parameters/commonDateTo'
+        - $ref: '#/components/parameters/retailersTagdsTimeToTransferListFilter'
+      responses:
+        '200':
+          $ref: '#/components/responses/retailersTagdsTimeToTransferListCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
 
-
+  /retailers/reporting/time-to-transfer/graph:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      description: 'Get graph with all tagds issued for current retailer'
+      operationId: getRetailerReportingTimeToTransferGraph
+      parameters:
+        - $ref: '#/components/parameters/retailersTagdsTimeToTransferListFilter'
+      responses:
+        '200':
+          $ref: '#/components/responses/retailersTagdsTimeToTransferGraphCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'

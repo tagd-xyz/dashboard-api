@@ -79,7 +79,96 @@ components:
           example: Adidas
 
     # -------------------------------------------------------------------------
-    # reseller schemas
+    # admin schemas
+    # -------------------------------------------------------------------------
+
+    adminsTagdsCurrencyListCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/adminsTagdsCurrencyListSingle'
+
+    adminsTagdsCurrencyListSingle:
+      type: object
+      properties:
+        min:
+          description: The minimum price
+          type: number
+          example: 20.00
+        max:
+          description: The maxiumum price
+          type: number
+          example: 2000.00
+        mean:
+          description: The mean average
+          type: number
+          example: 500.00
+        median:
+          description: The median average
+          type: number
+          example: 500.00
+        stdDev:
+          description: The standard deviation
+          type: number
+          example: 50.00
+        items:
+          description: The numer of items transfeerred
+          type: number
+          example: 500.00
+        quantiles:
+          description: The mean average
+          type: object
+          properties:
+            q1:
+              description: The first quantile
+              type: object
+              properties:
+                value:
+                  description: The quantile value
+                  type: number
+                  example: 500.00
+                items:
+                  description: The number of items
+                  type: number
+                  example: 50
+            q2:
+              description: The second quantile
+              type: object
+              properties:
+                value:
+                  description: The quantile value
+                  type: number
+                  example: 500.00
+                items:
+                  description: The number of items
+                  type: number
+                  example: 50
+            q3:
+              description: The third quantile
+              type: object
+              properties:
+                value:
+                  description: The quantile value
+                  type: number
+                  example: 500.00
+                items:
+                  description: The number of items
+                  type: number
+                  example: 50
+            q4:
+              description: The fourth quantile
+              type: object
+              properties:
+                value:
+                  description: The quantile value
+                  type: number
+                  example: 500.00
+                items:
+                  description: The number of items
+                  type: number
+                  example: 50
+
+    # -------------------------------------------------------------------------
+    # resellers schemas
     # -------------------------------------------------------------------------
 
     resellersTagdsFraudReportListCollection:
@@ -244,6 +333,120 @@ components:
           format: date-time
           example: "2023-06-19T14:36:33.164758Z"
 
+    resellersTagdsCurrencyListCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/resellersTagdsCurrencyListSingle'
+
+    resellersTagdsCurrencyListSingle:
+      type: object
+      properties:
+        min:
+          description: The minimum price
+          type: number
+          example: 20.00
+        max:
+          description: The maxiumum price
+          type: number
+          example: 2000.00
+        mean:
+          description: The mean average
+          type: number
+          example: 500.00
+        median:
+          description: The median average
+          type: number
+          example: 500.00
+        stdDev:
+          description: The standard deviation
+          type: number
+          example: 50.00
+        items:
+          description: The numer of items transfeerred
+          type: number
+          example: 500.00
+        quantiles:
+          description: The mean average
+          type: object
+          properties:
+            q1:
+              description: The first quantile
+              type: object
+              properties:
+                value:
+                  description: The quantile value
+                  type: number
+                  example: 500.00
+                items:
+                  description: The number of items
+                  type: number
+                  example: 50
+            q2:
+              description: The second quantile
+              type: object
+              properties:
+                value:
+                  description: The quantile value
+                  type: number
+                  example: 500.00
+                items:
+                  description: The number of items
+                  type: number
+                  example: 50
+            q3:
+              description: The third quantile
+              type: object
+              properties:
+                value:
+                  description: The quantile value
+                  type: number
+                  example: 500.00
+                items:
+                  description: The number of items
+                  type: number
+                  example: 50
+            q4:
+              description: The fourth quantile
+              type: object
+              properties:
+                value:
+                  description: The quantile value
+                  type: number
+                  example: 500.00
+                items:
+                  description: The number of items
+                  type: number
+                  example: 50
+
+    resellersTagdsCurrencyGraphCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/resellersTagdsCurrencyGraphSingle'
+
+    resellersTagdsCurrencyGraphSingle:
+      type: object
+      properties:
+        min:
+          description: The minimum price
+          type: number
+          example: 20.00
+        max:
+          description: The maxiumum price
+          type: number
+          example: 2000.00
+        mean:
+          description: The mean average
+          type: number
+          example: 500.00
+        median:
+          description: The median average
+          type: number
+          example: 500.00
+        stdDev:
+          description: The standard deviation
+          type: number
+          example: 50.00
+
     # -------------------------------------------------------------------------
     # retailers schemas
     # -------------------------------------------------------------------------
@@ -331,6 +534,86 @@ components:
           format: date-time
           example: "2023-06-19T14:36:33.164758Z"
 
+    retailersTagdsFraudReportListCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/retailersTagdsFraudReportListSingle'
+
+    retailersTagdsFraudReportListSingle:
+      type: object
+      properties:
+        id:
+          description: The tag ID
+          type: string
+          example: 957f4527-018f-4e83-80e9-4a9c75d78538
+        slug:
+          description: The tag slug
+          type: string
+          example: 35CJ-5W8H-4VHP-F3C4
+        isRoot:
+          description: Whether the tag is the root node or not
+          type: boolean
+          example: true
+        meta:
+          description: The tag meta
+          type: object
+        stats:
+          description: The tag stats
+          type: object
+        createdAt:
+          description: The tag creation date
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+        activatedAt:
+          description: The tag activation date
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+        expiredAt:
+          description: The tag expiration date
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+        transferredAt:
+          description: The tag transfer date
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
+        isActive:
+          description: Whether the tag is active or not
+          type: boolean
+          example: true
+        isExpired:
+          description: Whether the tag is expired or not
+          type: boolean
+          example: false
+        isTransferred:
+          description: Whether the tag is transferred or not
+          type: boolean
+          example: true
+        hasCustomerRegistered:
+          description: Whether the tag has a customer registered or not
+          type: boolean
+          example: true
+
+    retailersTagdsFraudReportGraphCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/retailersTagdsFraudReportGraphSingle'
+
+    retailersTagdsFraudReportGraphSingle:
+      type: object
+      properties:
+        total:
+          description: The total of tags issued
+          type: number
+          example: 10
+        t:
+          description: The interval of time
+          type: string
+          format: date-time
+          example: "2023-06-19T14:36:33.164758Z"
 
     retailersTagdsTimeToTransferListCollection:
       type: array
@@ -521,6 +804,17 @@ components:
             $ref: '#/components/schemas/refBrandCollection'
 
     # -------------------------------------------------------------------------
+    # admins responses
+    # -------------------------------------------------------------------------
+
+    adminsTagdsCurrencyListCollection:
+      description: 'List of currencies'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/adminsTagdsCurrencyListCollection'
+
+    # -------------------------------------------------------------------------
     # resellers responses
     # -------------------------------------------------------------------------
 
@@ -552,6 +846,13 @@ components:
           schema:
             $ref: '#/components/schemas/resellersTagdsTimeToTransferGraphCollection'
 
+    resellersTagdsCurrencyListCollection:
+      description: 'List of currencies'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/resellersTagdsCurrencyListCollection'
+
     # -------------------------------------------------------------------------
     # retailers responses
     # -------------------------------------------------------------------------
@@ -569,6 +870,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/retailersTagdsIssuedGraphCollection'
+
+    retailersTagdsFraudReportListCollection:
+      description: 'List of tagds'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/retailersTagdsFraudReportListCollection'
+
+    retailersTagdsFraudReportGraphCollection:
+      description: 'List of tagds to render a graph'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/retailersTagdsFraudReportGraphCollection'
 
     retailersTagdsTimeToTransferListCollection:
       description: 'List of tagds'
@@ -646,6 +961,25 @@ components:
         example: "2023-12-31"
 
     # ---------------------------------------------------------------------------
+    # admins parameters
+    # ---------------------------------------------------------------------------
+
+    adminsTagdsCurrencyListFilter:
+      name: filter
+      in: query
+      required: true
+      description: |
+        A json string describing the fields and values to filter by.
+        Format: {"field":"value"} or {"field":["value1","value2"]}.
+
+        The available fields to filter by are:
+        "brandas", "models", "countries", "city", "retailers", "resellers".
+      schema:
+        type: string
+        format: json
+        example: {"brands":["adidas", "zara"]}
+
+    # ---------------------------------------------------------------------------
     # resellers parameters
     # ---------------------------------------------------------------------------
 
@@ -678,6 +1012,39 @@ components:
         type: string
         format: json
         example: {"brands":["adidas", "zara"]}
+
+    resellersTagdsCurrencyListFilter:
+      name: filter
+      in: query
+      required: true
+      description: |
+        A json string describing the fields and values to filter by.
+        Format: {"field":"value"} or {"field":["value1","value2"]}.
+
+        The available fields to filter by are:
+        "brandas", "models", "countries", "city", "retailers", "resellers".
+      schema:
+        type: string
+        format: json
+        example: {"brands":["adidas", "zara"]}
+
+    resellersTagdsCurrencyListCurrency:
+      name: currency
+      in: query
+      required: true
+      description: The currency code
+      schema:
+        type: string
+        example: GBP
+
+    resellersTagdsCurrencyListDaysChunk:
+      name: daysChunk
+      in: query
+      required: true
+      description: The number of days to group the data by
+      schema:
+        type: number
+        example: 1
 
     # ---------------------------------------------------------------------------
     # retailers parameters
@@ -715,6 +1082,21 @@ components:
         type: string
         format: json
         example: {"brands":["adidas", "zara"],"transfersCount":2}
+
+    retailersTagdsFraudReportListFilter:
+      name: filter
+      in: query
+      required: true
+      description: |
+        A json string describing the fields and values to filter by.
+        Format: {"field":"value"} or {"field":["value1","value2"]}.
+
+        The available fields to filter by are:
+        "brands".
+      schema:
+        type: string
+        format: json
+        example: {"brands":["adidas", "zara"]}
 
 
   # ---------------------------------------------------------------------------
@@ -774,6 +1156,32 @@ paths:
           $ref: '#/components/responses/commonUnexpectedError'
 
   # ---------------------------------------------------------------------------
+  # /admins
+  # ---------------------------------------------------------------------------
+
+  /admins/reporting/currency/list:
+    get:
+      tags:
+        - admins
+      security:
+        - bearer: []
+      description: 'Get summary stats for current admin'
+      operationId: getAdminsReportingCurrencyList
+      parameters:
+        - $ref: '#/components/parameters/commonDateFrom'
+        - $ref: '#/components/parameters/commonDateTo'
+        - $ref: '#/components/parameters/adminsTagdsCurrencyListFilter'
+      responses:
+        '200':
+          $ref: '#/components/responses/adminsTagdsCurrencyListCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  # ---------------------------------------------------------------------------
   # /resellers
   # ---------------------------------------------------------------------------
 
@@ -784,7 +1192,7 @@ paths:
       security:
         - bearer: []
       description: 'Get all available brands for current reseller'
-      operationId: getResellerReportingRefBrands
+      operationId: getResellersReportingRefBrands
       parameters: []
       responses:
         '200':
@@ -803,7 +1211,7 @@ paths:
       security:
         - bearer: []
       description: 'Get list with all fraud data for current reseller'
-      operationId: getResellerReportingFraudReportList
+      operationId: getResellersReportingFraudReportList
       parameters:
         - $ref: '#/components/parameters/commonPage'
         - $ref: '#/components/parameters/commonPerPage'
@@ -828,7 +1236,7 @@ paths:
       security:
         - bearer: []
       description: 'Get graph with all fraud data for current reseller'
-      operationId: getResellerReportingFraudReportGraph
+      operationId: getResellersReportingFraudReportGraph
       parameters:
         - $ref: '#/components/parameters/resellersTagdsFraudReportListFilter'
       responses:
@@ -848,7 +1256,7 @@ paths:
       security:
         - bearer: []
       description: 'Get list with all tagds issued for current reseller'
-      operationId: getResellerReportingTimeToTransferList
+      operationId: getResellersReportingTimeToTransferList
       parameters:
         - $ref: '#/components/parameters/commonPage'
         - $ref: '#/components/parameters/commonPerPage'
@@ -873,12 +1281,58 @@ paths:
       security:
         - bearer: []
       description: 'Get graph with all tagds issued for current reseller'
-      operationId: getResellerReportingTimeToTransferGraph
+      operationId: getResellersReportingTimeToTransferGraph
       parameters:
         - $ref: '#/components/parameters/resellersTagdsTimeToTransferListFilter'
       responses:
         '200':
           $ref: '#/components/responses/resellersTagdsTimeToTransferGraphCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /resellers/reporting/currency/list:
+    get:
+      tags:
+        - resellers
+      security:
+        - bearer: []
+      description: 'Get summary stats for current reseller'
+      operationId: getResellersReportingCurrencyList
+      parameters:
+        - $ref: '#/components/parameters/commonDateFrom'
+        - $ref: '#/components/parameters/commonDateTo'
+        - $ref: '#/components/parameters/resellersTagdsCurrencyListFilter'
+      responses:
+        '200':
+          $ref: '#/components/responses/resellersTagdsCurrencyListCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /resellers/reporting/currency/graph:
+    get:
+      tags:
+        - resellers
+      security:
+        - bearer: []
+      description: 'Get summary stats for current reseller'
+      operationId: getResellersReportingCurrencyGraph
+      parameters:
+        - $ref: '#/components/parameters/commonDateFrom'
+        - $ref: '#/components/parameters/commonDateTo'
+        - $ref: '#/components/parameters/resellersTagdsCurrencyListFilter'
+        - $ref: '#/components/parameters/resellersTagdsCurrencyListCurrency'
+        - $ref: '#/components/parameters/resellersTagdsCurrencyListDaysChunk'
+      responses:
+        '200':
+          $ref: '#/components/responses/resellersTagdsCurrencyGraphCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
         '403':
@@ -897,7 +1351,7 @@ paths:
       security:
         - bearer: []
       description: 'Get all available brands for current retailer'
-      operationId: getRetailerReportingRefBrands
+      operationId: getRetailersReportingRefBrands
       parameters: []
       responses:
         '200':
@@ -916,7 +1370,7 @@ paths:
       security:
         - bearer: []
       description: 'Get list with all tagds issued for current retailer'
-      operationId: getRetailerReportingTagdsIssuedList
+      operationId: getRetailersReportingTagdsIssuedList
       parameters:
         - $ref: '#/components/parameters/commonPage'
         - $ref: '#/components/parameters/commonPerPage'
@@ -941,7 +1395,7 @@ paths:
       security:
         - bearer: []
       description: 'Get graph with all tagds issued for current retailer'
-      operationId: getRetailerReportingTagdsIssuedGraph
+      operationId: getRetailersReportingTagdsIssuedGraph
       parameters:
         - $ref: '#/components/parameters/commonPage'
         - $ref: '#/components/parameters/commonPerPage'
@@ -966,7 +1420,7 @@ paths:
       security:
         - bearer: []
       description: 'Get list with all tagds issued for current retailer'
-      operationId: getRetailerReportingTimeToTransferList
+      operationId: getRetailersReportingTimeToTransferList
       parameters:
         - $ref: '#/components/parameters/commonPage'
         - $ref: '#/components/parameters/commonPerPage'
@@ -991,12 +1445,57 @@ paths:
       security:
         - bearer: []
       description: 'Get graph with all tagds issued for current retailer'
-      operationId: getRetailerReportingTimeToTransferGraph
+      operationId: getRetailersReportingTimeToTransferGraph
       parameters:
         - $ref: '#/components/parameters/retailersTagdsTimeToTransferListFilter'
       responses:
         '200':
           $ref: '#/components/responses/retailersTagdsTimeToTransferGraphCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /retailers/reporting/fraud-report/list:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      operationId: getRetailersReportingFraudReportList
+      description: 'Get list with all fraud data for current retailer'
+      parameters:
+        - $ref: '#/components/parameters/commonPage'
+        - $ref: '#/components/parameters/commonPerPage'
+        - $ref: '#/components/parameters/commonDirection'
+        - $ref: '#/components/parameters/commonDateFrom'
+        - $ref: '#/components/parameters/commonDateTo'
+        - $ref: '#/components/parameters/retailersTagdsFraudReportListFilter'
+      responses:
+        '200':
+          $ref: '#/components/responses/retailersTagdsFraudReportListCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /retailers/reporting/fraud-report/graph:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      operationId: getRetailersReportingFraudReportGraph
+      description: 'Get graph with all fraud data for current retailer'
+      parameters:
+        - $ref: '#/components/parameters/retailersTagdsFraudReportListFilter'
+      responses:
+        '200':
+          $ref: '#/components/responses/retailersTagdsFraudReportGraphCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
         '403':

@@ -696,6 +696,120 @@ components:
           format: date-time
           example: "2023-06-19T14:36:33.164758Z"
 
+    retailersTagdsCurrencyListCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/retailersTagdsCurrencyListSingle'
+
+    retailersTagdsCurrencyListSingle:
+      type: object
+      properties:
+        min:
+          description: The minimum price
+          type: number
+          example: 20.00
+        max:
+          description: The maxiumum price
+          type: number
+          example: 2000.00
+        mean:
+          description: The mean average
+          type: number
+          example: 500.00
+        median:
+          description: The median average
+          type: number
+          example: 500.00
+        stdDev:
+          description: The standard deviation
+          type: number
+          example: 50.00
+        items:
+          description: The numer of items transfeerred
+          type: number
+          example: 500.00
+        quantiles:
+          description: The mean average
+          type: object
+          properties:
+            q1:
+              description: The first quantile
+              type: object
+              properties:
+                value:
+                  description: The quantile value
+                  type: number
+                  example: 500.00
+                items:
+                  description: The number of items
+                  type: number
+                  example: 50
+            q2:
+              description: The second quantile
+              type: object
+              properties:
+                value:
+                  description: The quantile value
+                  type: number
+                  example: 500.00
+                items:
+                  description: The number of items
+                  type: number
+                  example: 50
+            q3:
+              description: The third quantile
+              type: object
+              properties:
+                value:
+                  description: The quantile value
+                  type: number
+                  example: 500.00
+                items:
+                  description: The number of items
+                  type: number
+                  example: 50
+            q4:
+              description: The fourth quantile
+              type: object
+              properties:
+                value:
+                  description: The quantile value
+                  type: number
+                  example: 500.00
+                items:
+                  description: The number of items
+                  type: number
+                  example: 50
+
+    retailersTagdsCurrencyGraphCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/retailersTagdsCurrencyGraphSingle'
+
+    retailersTagdsCurrencyGraphSingle:
+      type: object
+      properties:
+        min:
+          description: The minimum price
+          type: number
+          example: 20.00
+        max:
+          description: The maxiumum price
+          type: number
+          example: 2000.00
+        mean:
+          description: The mean average
+          type: number
+          example: 500.00
+        median:
+          description: The median average
+          type: number
+          example: 500.00
+        stdDev:
+          description: The standard deviation
+          type: number
+          example: 50.00
+
   # ===========================================================================
   # RESPONSES
   # ===========================================================================
@@ -853,6 +967,14 @@ components:
           schema:
             $ref: '#/components/schemas/resellersTagdsCurrencyListCollection'
 
+    resellersTagdsCurrencyGraphCollection:
+      description: 'List of currencies to render a graph'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/resellersTagdsCurrencyGraphCollection'
+
+
     # -------------------------------------------------------------------------
     # retailers responses
     # -------------------------------------------------------------------------
@@ -898,6 +1020,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/retailersTagdsTimeToTransferGraphCollection'
+
+    retailersTagdsCurrencyListCollection:
+      description: 'List of currencies'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/retailersTagdsCurrencyListCollection'
+
+    retailersTagdsCurrencyGraphCollection:
+      description: 'List of currencies to render a graph'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/retailersTagdsCurrencyGraphCollection'
 
   # ===========================================================================
   # PARAMETERS
@@ -1098,6 +1234,38 @@ components:
         format: json
         example: {"brands":["adidas", "zara"]}
 
+    retailersTagdsCurrencyListFilter:
+      name: filter
+      in: query
+      required: true
+      description: |
+        A json string describing the fields and values to filter by.
+        Format: {"field":"value"} or {"field":["value1","value2"]}.
+
+        The available fields to filter by are:
+        "brandas", "models", "countries", "city", "retailers", "retailers".
+      schema:
+        type: string
+        format: json
+        example: {"brands":["adidas", "zara"]}
+
+    retailersTagdsCurrencyListCurrency:
+      name: currency
+      in: query
+      required: true
+      description: The currency code
+      schema:
+        type: string
+        example: GBP
+
+    retailersTagdsCurrencyListDaysChunk:
+      name: daysChunk
+      in: query
+      required: true
+      description: The number of days to group the data by
+      schema:
+        type: number
+        example: 1
 
   # ---------------------------------------------------------------------------
   # security schemas
@@ -1496,6 +1664,52 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/retailersTagdsFraudReportGraphCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /retailers/reporting/currency/list:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      description: 'Get summary stats for current retailer'
+      operationId: getRetailersReportingCurrencyList
+      parameters:
+        - $ref: '#/components/parameters/commonDateFrom'
+        - $ref: '#/components/parameters/commonDateTo'
+        - $ref: '#/components/parameters/retailersTagdsCurrencyListFilter'
+      responses:
+        '200':
+          $ref: '#/components/responses/retailersTagdsCurrencyListCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /retailers/reporting/currency/graph:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      description: 'Get summary stats for current retailer'
+      operationId: getRetailersReportingCurrencyGraph
+      parameters:
+        - $ref: '#/components/parameters/commonDateFrom'
+        - $ref: '#/components/parameters/commonDateTo'
+        - $ref: '#/components/parameters/retailersTagdsCurrencyListFilter'
+        - $ref: '#/components/parameters/retailersTagdsCurrencyListCurrency'
+        - $ref: '#/components/parameters/retailersTagdsCurrencyListDaysChunk'
+      responses:
+        '200':
+          $ref: '#/components/responses/retailersTagdsCurrencyGraphCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
         '403':

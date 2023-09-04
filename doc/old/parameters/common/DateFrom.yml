@@ -1,8 +1,0 @@
-name: dateFrom
-in: path
-required: false
-description: The date from which to retrieve the data. Format YYYY-MM-DD
-schema:
-  type: string
-  format: date-time
-  example: "2023-01-01"

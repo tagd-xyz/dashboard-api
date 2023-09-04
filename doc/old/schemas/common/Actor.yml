@@ -1,6 +1,0 @@
-description: The type of actor
-type: string
-enum:
-  - consumer
-  - reseller
-  - retailer

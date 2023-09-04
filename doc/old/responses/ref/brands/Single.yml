@@ -1,5 +1,0 @@
-description: A single brand
-content:
-  application/json:
-    schema:
-      $ref: './../../../schemas/ref/brand/Single.yml'

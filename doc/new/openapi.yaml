@@ -69,14 +69,27 @@ components:
     refBrandSingle:
       type: object
       properties:
-        id:
-          description: The brand ID
-          type: string
-          example: 957f4527-018f-4e83-80e9-4a9c75d78538
         name:
           description: The brand name
           type: string
           example: Adidas
+
+    refCountryCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/refCountrySingle'
+
+    refCountrySingle:
+      type: object
+      properties:
+        name:
+          description: The country name
+          type: string
+          example: GBR
+        code:
+          description: The country name
+          type: string
+          example: United Kingdom
 
     # -------------------------------------------------------------------------
     # admin schemas
@@ -447,6 +460,110 @@ components:
           type: number
           example: 50.00
 
+    resellersAvgResaleValueGraphCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/resellersAvgResaleValueGraphSingle'
+
+    resellersAvgResaleValueGraphSingle:
+      type: object
+      properties:
+        since:
+          description: Date period start
+          type: string
+          format: date-time
+          example: "2023-01-01"
+        until:
+          description: Date period end
+          type: string
+          format: date-time
+          example: "2023-10-10"
+        value:
+          description: The period value
+          type: number
+          example: 500.00
+
+    resellersPopularTypesListCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/resellersPopularTypesListSingle'
+
+    resellersPopularTypesListSingle:
+      type: object
+      properties:
+        id:
+          description: The type id
+          type: number
+          example: 101
+        name:
+          description: The type name
+          type: string
+          example: "Boots and ankle boots"
+        total:
+          description: The type count
+          type: number
+          example: 500
+
+    resellersResaleFrequencyListCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/resellersResaleFrequencyListSingle'
+
+    resellersResaleFrequencyListSingle:
+      type: object
+      properties:
+        id:
+          description: The item id
+          type: number
+          example: 101
+        type:
+          description: The type type name
+          type: string
+          example: "Boots and ankle boots"
+        name:
+          description: The item name
+          type: string
+          example: "Chelsea 2023"
+        description:
+          description: The item description
+          type: string
+          example: "A nice pair of boots"
+        properties:
+          description: The item properties
+          type: string
+          format: json
+          example: "{}"
+        total:
+          description: The item count
+          type: number
+          example: 500
+
+    resellersPopularResellersListCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/resellersPopularResellersListSingle'
+
+    resellersPopularResellersListSingle:
+      type: object
+      properties:
+        id:
+          description: The reseller id
+          type: number
+          example: 101
+        name:
+          description: The reseller name
+          type: string
+          example: "eBay"
+        total:
+          description: The reseller count
+          type: number
+          example: 500
+        file:
+          description: The item logo
+          type: string
+          format: url
+          example: "http://logo.png"
+
     # -------------------------------------------------------------------------
     # retailers schemas
     # -------------------------------------------------------------------------
@@ -810,6 +927,111 @@ components:
           type: number
           example: 50.00
 
+    retailersAvgResaleValueGraphCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/retailersAvgResaleValueGraphSingle'
+
+    retailersAvgResaleValueGraphSingle:
+      type: object
+      properties:
+        since:
+          description: Date period start
+          type: string
+          format: date-time
+          example: "2023-01-01"
+        until:
+          description: Date period end
+          type: string
+          format: date-time
+          example: "2023-10-10"
+        value:
+          description: The period value
+          type: number
+          example: 500.00
+
+    retailersPopularTypesListCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/retailersPopularTypesListSingle'
+
+    retailersPopularTypesListSingle:
+      type: object
+      properties:
+        id:
+          description: The type id
+          type: number
+          example: 101
+        name:
+          description: The type name
+          type: string
+          example: "Boots and ankle boots"
+        total:
+          description: The type count
+          type: number
+          example: 500
+
+    retailersResaleFrequencyListCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/retailersResaleFrequencyListSingle'
+
+    retailersResaleFrequencyListSingle:
+      type: object
+      properties:
+        id:
+          description: The item id
+          type: number
+          example: 101
+        type:
+          description: The type type name
+          type: string
+
+          example: "Boots and ankle boots"
+        name:
+          description: The item name
+          type: string
+          example: "Chelsea 2023"
+        description:
+          description: The item description
+          type: string
+          example: "A nice pair of boots"
+        properties:
+          description: The item properties
+          type: string
+          format: json
+          example: "{}"
+        total:
+          description: The item count
+          type: number
+          example: 500
+
+    retailersPopularResellersListCollection:
+      type: array
+      items:
+        $ref: '#/components/schemas/retailersPopularResellersListSingle'
+
+    retailersPopularResellersListSingle:
+      type: object
+      properties:
+        id:
+          description: The reseller id
+          type: number
+          example: 101
+        name:
+          description: The reseller name
+          type: string
+          example: "eBay"
+        total:
+          description: The reseller count
+          type: number
+          example: 500
+        file:
+          description: The item logo
+          type: string
+          format: url
+          example: "http://logo.png"
+
   # ===========================================================================
   # RESPONSES
   # ===========================================================================
@@ -819,6 +1041,9 @@ components:
     # -------------------------------------------------------------------------
     # common responses
     # -------------------------------------------------------------------------
+
+    commonNoContent:
+      description: 'No Content.'
 
     commonUnexpectedError:
       description: 'Unexpected server error.'
@@ -871,6 +1096,23 @@ components:
                     type: string
                     example: "Access forbidden."
 
+    commonInvalidError:
+      description: 'Forbidden access error.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              status:
+                type: number
+                example: 412
+              error:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Invalid request."
+
     # -------------------------------------------------------------------------
     # status responses
     # -------------------------------------------------------------------------
@@ -916,6 +1158,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/refBrandCollection'
+
+    refCountries:
+      description: 'List of countries'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/refCountryCollection'
 
     # -------------------------------------------------------------------------
     # admins responses
@@ -974,6 +1223,33 @@ components:
           schema:
             $ref: '#/components/schemas/resellersTagdsCurrencyGraphCollection'
 
+    resellersAvgResaleValueGraphCollection:
+      description: 'List of resale values by date'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/resellersAvgResaleValueGraphCollection'
+
+    resellersPopularTypesListCollection:
+      description: 'List of resale values by date'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/resellersPopularTypesListCollection'
+
+    resellersResaleFrequencyListCollection:
+      description: 'List of resale values by date'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/resellersResaleFrequencyListCollection'
+
+    resellersPopularResellersListCollection:
+      description: 'List of resale values by date'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/resellersPopularResellersListCollection'
 
     # -------------------------------------------------------------------------
     # retailers responses
@@ -1034,6 +1310,34 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/retailersTagdsCurrencyGraphCollection'
+
+    retailersAvgResaleValueGraphCollection:
+      description: 'List of resale values by date'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/retailersAvgResaleValueGraphCollection'
+
+    retailersPopularTypesListCollection:
+      description: 'List of resale values by date'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/retailersPopularTypesListCollection'
+
+    retailersResaleFrequencyListCollection:
+      description: 'List of resale values by date'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/retailersResaleFrequencyListCollection'
+
+    retailersPopularResellersListCollection:
+      description: 'List of resale values by date'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/retailersPopularResellersListCollection'
 
   # ===========================================================================
   # PARAMETERS
@@ -1096,6 +1400,15 @@ components:
         format: date-time
         example: "2023-12-31"
 
+    commonMonthsAgo:
+      name: monthsAgo
+      in: query
+      required: true
+      description: 'Number of months to retrieve data from'
+      schema:
+        type: number
+        example: 6
+
     # ---------------------------------------------------------------------------
     # admins parameters
     # ---------------------------------------------------------------------------
@@ -1109,7 +1422,7 @@ components:
         Format: {"field":"value"} or {"field":["value1","value2"]}.
 
         The available fields to filter by are:
-        "brandas", "models", "countries", "city", "retailers", "resellers".
+        "brandas", "models", "countries", "city", "retailers", "res   ellers".
       schema:
         type: string
         format: json
@@ -1344,6 +1657,8 @@ paths:
           $ref: '#/components/responses/adminsTagdsCurrencyListCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1367,6 +1682,29 @@ paths:
           $ref: '#/components/responses/refBrands'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /resellers/reporting/ref/countries:
+    get:
+      tags:
+        - resellers
+      security:
+        - bearer: []
+      description: 'Get all available countries for current reseller'
+      operationId: getResellersReportingRefCountries
+      parameters: []
+      responses:
+        '200':
+          $ref: '#/components/responses/refCountries'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1412,6 +1750,8 @@ paths:
           $ref: '#/components/responses/resellersTagdsFraudReportGraphCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1437,6 +1777,8 @@ paths:
           $ref: '#/components/responses/resellersTagdsTimeToTransferListCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1457,6 +1799,8 @@ paths:
           $ref: '#/components/responses/resellersTagdsTimeToTransferGraphCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1479,6 +1823,8 @@ paths:
           $ref: '#/components/responses/resellersTagdsCurrencyListCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1501,6 +1847,83 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/resellersTagdsCurrencyGraphCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /resellers/reporting/avg-resale-value/graph:
+    get:
+      tags:
+        - resellers
+      security:
+        - bearer: []
+      description: 'Get average resale value graph for current reseller'
+      parameters:
+        - $ref: '#/components/parameters/commonMonthsAgo'
+      responses:
+        '200':
+          $ref: '#/components/responses/resellersAvgResaleValueGraphCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /resellers/reporting/popular-types/list:
+    get:
+      tags:
+        - resellers
+      security:
+        - bearer: []
+      description: 'Get average resale value graph for current reseller'
+      parameters: []
+      responses:
+        '200':
+          $ref: '#/components/responses/resellersPopularTypesListCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /resellers/reporting/resale-frequency/list:
+    get:
+      tags:
+        - resellers
+      security:
+        - bearer: []
+      description: 'Get average resale value graph for current reseller'
+      parameters: []
+      responses:
+        '200':
+          $ref: '#/components/responses/resellersResaleFrequencyListCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /resellers/reporting/popular-resellers/list:
+    get:
+      tags:
+        - resellers
+      security:
+        - bearer: []
+      description: 'Get average resale value graph for current reseller'
+      parameters: []
+      responses:
+        '200':
+          $ref: '#/components/responses/resellersPopularResellersListCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
         '403':
@@ -1531,6 +1954,25 @@ paths:
         '500':
           $ref: '#/components/responses/commonUnexpectedError'
 
+  /retailers/reporting/ref/countries:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      description: 'Get all available countries for current retailer'
+      operationId: getRetailersReportingRefCountries
+      parameters: []
+      responses:
+        '200':
+          $ref: '#/components/responses/refCountries'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
   /retailers/reporting/tags-issued/list:
     get:
       tags:
@@ -1551,6 +1993,8 @@ paths:
           $ref: '#/components/responses/retailersTagdsIssuedListCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1576,6 +2020,8 @@ paths:
           $ref: '#/components/responses/retailersTagdsIssuedGraphCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1601,6 +2047,8 @@ paths:
           $ref: '#/components/responses/retailersTagdsTimeToTransferListCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1621,6 +2069,8 @@ paths:
           $ref: '#/components/responses/retailersTagdsTimeToTransferGraphCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1646,6 +2096,8 @@ paths:
           $ref: '#/components/responses/retailersTagdsFraudReportListCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1666,6 +2118,8 @@ paths:
           $ref: '#/components/responses/retailersTagdsFraudReportGraphCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1688,6 +2142,8 @@ paths:
           $ref: '#/components/responses/retailersTagdsCurrencyListCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
         '403':
           $ref: '#/components/responses/commonForbiddenError'
         '500':
@@ -1710,6 +2166,104 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/retailersTagdsCurrencyGraphCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /retailers/reporting/avg-resale-value/graph:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      description: 'Get average resale value graph for current retailer'
+      parameters:
+        - $ref: '#/components/parameters/commonMonthsAgo'
+      responses:
+        '200':
+          $ref: '#/components/responses/retailersAvgResaleValueGraphCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /retailers/reporting/return-rate/graph:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      description: 'Get average resale value graph for current retailer'
+      parameters:
+        - $ref: '#/components/parameters/commonMonthsAgo'
+      responses:
+        '200':
+          description: OK
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '412':
+          $ref: '#/components/responses/commonInvalidError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /retailers/reporting/popular-types/list:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      description: 'Get average resale value graph for current reseller'
+      parameters: []
+      responses:
+        '200':
+          $ref: '#/components/responses/retailersPopularTypesListCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /retailers/reporting/resale-frequency/list:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      description: 'Get average resale value graph for current reseller'
+      parameters: []
+      responses:
+        '200':
+          $ref: '#/components/responses/retailersResaleFrequencyListCollection'
+        '401':
+          $ref: '#/components/responses/commonUnauthorizedError'
+        '403':
+          $ref: '#/components/responses/commonForbiddenError'
+        '500':
+          $ref: '#/components/responses/commonUnexpectedError'
+
+  /retailers/reporting/popular-resellers/list:
+    get:
+      tags:
+        - retailers
+      security:
+        - bearer: []
+      description: 'Get average resale value graph for current reseller'
+      parameters: []
+      responses:
+        '200':
+          $ref: '#/components/responses/retailersPopularResellersListCollection'
         '401':
           $ref: '#/components/responses/commonUnauthorizedError'
         '403':

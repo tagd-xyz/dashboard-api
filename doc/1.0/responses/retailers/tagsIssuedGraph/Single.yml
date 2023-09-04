@@ -1,5 +1,0 @@
-description: A single tag issued stat
-content:
-  application/json:
-    schema:
-      $ref: './../../../schemas/retailers/tagsIssuedGraph/Single.yml'

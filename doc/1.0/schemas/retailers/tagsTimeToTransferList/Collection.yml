@@ -1,4 +1,0 @@
-description: A tags collection
-type: array
-items:
-  $ref: './Single.yml'

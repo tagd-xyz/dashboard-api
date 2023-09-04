@@ -1,5 +1,0 @@
-description: A single tag issued
-content:
-  application/json:
-    schema:
-      $ref: './../../../schemas/retailers/tagsTimeToTransferList/Single.yml'

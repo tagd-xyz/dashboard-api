@@ -1,8 +1,0 @@
-name: dateTo
-in: path
-required: false
-description: The date to which to retrieve the data. Format YYYY-MM-DD
-schema:
-  type: string
-  format: date-time
-  example: "2023-12-31"

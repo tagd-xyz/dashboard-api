@@ -1,5 +1,0 @@
-description: A single tag time-to-transfer stat
-content:
-  application/json:
-    schema:
-      $ref: './../../../schemas/retailers/tagsTimeToTransferGraph/Single.yml'

@@ -1,7 +1,0 @@
-name: perPage
-in: path
-required: false
-description: The number of items to retrieve. Default value is 25
-schema:
-  type: integer
-  example: 25

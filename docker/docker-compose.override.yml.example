@@ -4,3 +4,11 @@ services:
     &tagd-dash-api
     volumes:
       - '../../../packages/core:/packages/core'
+  tagd-dash-api-queue:
+    &tagd-dash-api
+    volumes:
+      - '../../../packages/core:/packages/core'
+  tagd-dash-api-schedule:
+    &tagd-dash-api
+    volumes:
+      - '../../../packages/core:/packages/core'

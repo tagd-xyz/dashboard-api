@@ -33,7 +33,7 @@ class AvgResaleValue extends Controller
             $data[] = [
                 'since' => $since->format('Y-m-d'),
                 'until' => $until->format('Y-m-d'),
-                'value' => $partial,
+                'value' => $partial ?? 0,
             ];
 
             $since->addMonth();

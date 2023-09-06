@@ -1196,14 +1196,14 @@ components:
             $ref: '#/components/schemas/resellersTagdsFraudReportGraphCollection'
 
     resellersTagdsTimeToTransferListCollection:
-      description: 'List of tagds'
+      description: 'List of tagds TTTs'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/resellersTagdsTimeToTransferListCollection'
 
     resellersTagdsTimeToTransferGraphCollection:
-      description: 'List of tagds to render a graph'
+      description: 'List of tagds TTTs to render a graph'
       content:
         application/json:
           schema:
@@ -1231,21 +1231,21 @@ components:
             $ref: '#/components/schemas/resellersAvgResaleValueGraphCollection'
 
     resellersPopularTypesListCollection:
-      description: 'List of resale values by date'
+      description: 'List of popular item types by date'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/resellersPopularTypesListCollection'
 
     resellersResaleFrequencyListCollection:
-      description: 'List of resale values by date'
+      description: 'List of frequently resold items by date'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/resellersResaleFrequencyListCollection'
 
     resellersPopularResellersListCollection:
-      description: 'List of resale values by date'
+      description: 'List of popular resellers by date'
       content:
         application/json:
           schema:
@@ -1284,14 +1284,14 @@ components:
             $ref: '#/components/schemas/retailersTagdsFraudReportGraphCollection'
 
     retailersTagdsTimeToTransferListCollection:
-      description: 'List of tagds'
+      description: 'List of tagds TTTs'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/retailersTagdsTimeToTransferListCollection'
 
     retailersTagdsTimeToTransferGraphCollection:
-      description: 'List of tagds to render a graph'
+      description: 'List of tagds TTTs to render a graph'
       content:
         application/json:
           schema:
@@ -1319,21 +1319,21 @@ components:
             $ref: '#/components/schemas/retailersAvgResaleValueGraphCollection'
 
     retailersPopularTypesListCollection:
-      description: 'List of resale values by date'
+      description: 'List of popular item types by date'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/retailersPopularTypesListCollection'
 
     retailersResaleFrequencyListCollection:
-      description: 'List of resale values by date'
+      description: 'List of frequently resold items by date'
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/retailersResaleFrequencyListCollection'
 
     retailersPopularResellersListCollection:
-      description: 'List of resale values by date'
+      description: 'List of popular resellers by date'
       content:
         application/json:
           schema:
@@ -1763,7 +1763,7 @@ paths:
         - resellers
       security:
         - bearer: []
-      description: 'Get list with all tagds issued for current reseller'
+      description: 'Get list with all tagds and their TTT for current reseller'
       operationId: getResellersReportingTimeToTransferList
       parameters:
         - $ref: '#/components/parameters/commonPage'
@@ -1790,7 +1790,7 @@ paths:
         - resellers
       security:
         - bearer: []
-      description: 'Get graph with all tagds issued for current reseller'
+      description: 'Get graph with all tagds and their TTT for current reseller'
       operationId: getResellersReportingTimeToTransferGraph
       parameters:
         - $ref: '#/components/parameters/resellersTagdsTimeToTransferListFilter'
@@ -1883,7 +1883,7 @@ paths:
         - resellers
       security:
         - bearer: []
-      description: 'Get average resale value graph for current reseller'
+      description: 'Get most popular item types for current reseller'
       parameters: []
       responses:
         '200':
@@ -1901,7 +1901,7 @@ paths:
         - resellers
       security:
         - bearer: []
-      description: 'Get average resale value graph for current reseller'
+      description: 'Get most frequently resold items for current reseller'
       parameters: []
       responses:
         '200':
@@ -1919,7 +1919,7 @@ paths:
         - resellers
       security:
         - bearer: []
-      description: 'Get average resale value graph for current reseller'
+      description: 'Get most popular resellers for current reseller'
       parameters: []
       responses:
         '200':
@@ -2033,7 +2033,7 @@ paths:
         - retailers
       security:
         - bearer: []
-      description: 'Get list with all tagds issued for current retailer'
+      description: 'Get list with all tagds and their TTT for current retailer'
       operationId: getRetailersReportingTimeToTransferList
       parameters:
         - $ref: '#/components/parameters/commonPage'
@@ -2060,7 +2060,7 @@ paths:
         - retailers
       security:
         - bearer: []
-      description: 'Get graph with all tagds issued for current retailer'
+      description: 'Get graph with all tagds and their TTT for current retailer'
       operationId: getRetailersReportingTimeToTransferGraph
       parameters:
         - $ref: '#/components/parameters/retailersTagdsTimeToTransferListFilter'
@@ -2202,7 +2202,7 @@ paths:
         - retailers
       security:
         - bearer: []
-      description: 'Get average resale value graph for current retailer'
+      description: 'Get graph with most returned items for current retailer'
       parameters:
         - $ref: '#/components/parameters/commonMonthsAgo'
       responses:
@@ -2223,7 +2223,7 @@ paths:
         - retailers
       security:
         - bearer: []
-      description: 'Get average resale value graph for current reseller'
+      description: 'Get most popular item types for current reseller'
       parameters: []
       responses:
         '200':
@@ -2241,7 +2241,7 @@ paths:
         - retailers
       security:
         - bearer: []
-      description: 'Get average resale value graph for current reseller'
+      description: 'Get most frequently resold items for current reseller'
       parameters: []
       responses:
         '200':
@@ -2259,7 +2259,7 @@ paths:
         - retailers
       security:
         - bearer: []
-      description: 'Get average resale value graph for current reseller'
+      description: 'Get most popular resellers for current reseller'
       parameters: []
       responses:
         '200':

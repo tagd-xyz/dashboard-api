@@ -61,15 +61,15 @@ class AmountGetTest extends Base
                         ],
                         'q2' => [
                             'value' => $this->calculateQuantile($amounts, 2),
-                            'items' => (1 == count($amounts)) ? 1 : 0,
+                            'items' => (count($amounts) == 1) ? 1 : 0,
                         ],
                         'q3' => [
                             'value' => $this->calculateQuantile($amounts, 3),
-                            'items' => (1 == count($amounts)) ? 1 : 0,
+                            'items' => (count($amounts) == 1) ? 1 : 0,
                         ],
                         'q4' => [
                             'value' => $this->calculateQuantile($amounts, 4),
-                            'items' => (1 == count($amounts)) ? 1 : 0,
+                            'items' => (count($amounts) == 1) ? 1 : 0,
                         ],
                     ],
                     'itemsTransferred' => 0,

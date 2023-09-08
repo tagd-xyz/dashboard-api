@@ -21,8 +21,8 @@ class Me extends JsonResource
                     'id' => $actor->id,
                     'name' => $actor->name,
                     'avatarUploadId' => $actor->avatar_upload_id,
-                    'logoUrl' => $actor->avatar_url,
-                    'logoSmallUrl' => $actor->avatar_small_url,
+                    'logoUrl' => $actor->avatar->url ?? null,
+                    'logoSmallUrl' => $actor->avatar->small_url ?? null,
                     'website' => $actor->website,
                 ];
             })

@@ -12,7 +12,7 @@ use Tagd\Core\Tests\Traits\NeedsTagds;
 
 abstract class Base extends \Tests\Feature\V1\Base
 {
-    use NeedsDatabase, NeedsRetailers, NeedsItems, NeedsResales, NeedsResellers, NeedsConsumers, NeedsTagds;
+    use NeedsConsumers, NeedsDatabase, NeedsItems, NeedsResales, NeedsResellers, NeedsRetailers, NeedsTagds;
 
     /**
      * Calculate min from array

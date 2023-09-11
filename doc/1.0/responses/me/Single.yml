@@ -1,5 +1,0 @@
-description: The user's profile
-content:
-  application/json:
-    schema:
-      $ref: './../../schemas/me/Single.yml'

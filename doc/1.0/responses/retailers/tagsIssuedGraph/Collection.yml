@@ -1,5 +1,0 @@
-description: List of tags issued stats
-content:
-  application/json:
-    schema:
-      $ref: './../../../schemas/retailers/tagsIssuedGraph/Collection.yml'

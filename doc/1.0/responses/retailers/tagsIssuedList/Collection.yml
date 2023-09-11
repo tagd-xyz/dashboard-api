@@ -1,5 +1,0 @@
-description: List of tags issued
-content:
-  application/json:
-    schema:
-      $ref: './../../../schemas/retailers/tagsIssuedList/Collection.yml'

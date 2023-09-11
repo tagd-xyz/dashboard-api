@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
+use Tagd\Core\Models\Actor\Admin;
 use Tagd\Core\Models\Actor\Reseller;
 use Tagd\Core\Models\Actor\Retailer;
 use Tagd\Core\Models\Item\Tagd as TagdModel;
@@ -27,6 +28,10 @@ trait Currency
 
     protected $filterDateTo = null;
 
+    protected $filterRetailers = null;
+
+    protected $filterResellers = null;
+
     /**
      * Determine if the current user is acting as a retailer.
      */
@@ -41,6 +46,14 @@ trait Currency
     protected function isActingAsReseller(): bool
     {
         return $this->actingAs instanceof Reseller;
+    }
+
+    /**
+     * Determine if the current user is acting as an admin.
+     */
+    protected function isActingAsAdmin(): bool
+    {
+        return $this->actingAs instanceof Admin;
     }
 
     /**
@@ -65,6 +78,14 @@ trait Currency
                 })
                 ->when($this->isActingAsReseller(), function (EloquentBuilder $query) {
                     $query->where('reseller_id', $this->actingAs->id);
+                })
+                ->when(! is_null($this->filterResellers), function (EloquentBuilder $query) {
+                    $query->whereIn('reseller_id', $this->filterResellers);
+                })
+                ->when(! is_null($this->filterRetailers), function (EloquentBuilder $query) {
+                    $query->whereHas('item', function (EloquentBuilder $query) {
+                        $query->whereIn('retailer_id', $this->filterRetailers);
+                    });
                 })
                 ->when(! is_null($this->filterModel), function (EloquentBuilder $query) {
                     $query->whereHas('item', function ($query) {
@@ -108,7 +129,7 @@ trait Currency
             ->selectRaw("min(json_extract(`meta`, '$.price.amount')) as min")
             ->get()
             ->pluck('min')
-            ->first();
+            ->first() ?? 0.0;
     }
 
     /**
@@ -121,7 +142,7 @@ trait Currency
             ->selectRaw("max(json_extract(`meta`, '$.price.amount')) as max")
             ->get()
             ->pluck('max')
-            ->first();
+            ->first() ?? 0.0;
     }
 
     /**
@@ -129,12 +150,15 @@ trait Currency
      */
     private function avgMean(string $currency): float
     {
-        return $this
-            ->filteredTagds($currency)
-            ->selectRaw("avg(json_extract(`meta`, '$.price.amount')) as avgMean")
-            ->get()
-            ->pluck('avgMean')
-            ->first();
+        return round(
+            $this
+                ->filteredTagds($currency)
+                ->selectRaw("avg(json_extract(`meta`, '$.price.amount')) as avgMean")
+                ->get()
+                ->pluck('avgMean')
+                ->first() ?? 0.0,
+            2
+        );
     }
 
     /**
@@ -163,7 +187,7 @@ trait Currency
             ->whereRaw('tagds.row_number IN ( FLOOR((@total_rows+1)/2), FLOOR((@total_rows+2)/2) )')
             ->get()
             ->pluck('avg_median')
-            ->first();
+            ->first() ?? 0.0;
     }
 
     /**
@@ -171,12 +195,12 @@ trait Currency
      */
     private function stdDev(string $currency): float
     {
-        return floatval($this
+        return round(floatval($this
             ->filteredTagds($currency)
             ->selectRaw("stddev(json_extract(`meta`, '$.price.amount')) as stdDev")
             ->get()
             ->pluck('stdDev')
-            ->first());
+            ->first() ?? 0.0), 2);
     }
 
     /**
@@ -201,6 +225,13 @@ trait Currency
 
         $array = array_values($list);
 
+        if (empty($array)) {
+            return [
+                'value' => 0.0,
+                'items' => 0,
+            ];
+        }
+
         // sort($array);
         $index = ($quantile / 100) * (count($list) - 1);
         $fractionPart = $index - floor($index);
@@ -216,7 +247,7 @@ trait Currency
         }
 
         return [
-            'value' => $percentile,
+            'value' => round($percentile, 2),
             'items' => $this->filteredTagds($currency)
                 ->where('meta->price->amount', '>=', $percentilePrev)
                 ->where('meta->price->amount', '<=', $percentile)

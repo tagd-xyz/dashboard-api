@@ -18,10 +18,11 @@ class PopularResellers extends Controller
         $until = Carbon::now();
 
         $data = TagdModel::join('resellers', 'resellers.id', '=', 'reseller_id')
-            ->leftJoin('uploads', 'uploads.id', '=', 'resellers.avatar_upload_id')
+            // ->leftJoin('resellers_images', 'resellers_images.reseller_id', '=', 'resellers.id')
+            // ->leftJoin('uploads', 'uploads.id', '=', 'resellers_images.upload_id')
             ->where('status', TagdStatus::TRANSFERRED)
             ->whereBetween('tagds.created_at', [$since, $until])
-            ->selectRaw('file, resellers.id, resellers.name, count(*) as total')
+            ->selectRaw('resellers.id, resellers.name, count(*) as total')
             ->groupBy('reseller_id')
             ->orderBy('total', 'desc')
             ->limit(5)

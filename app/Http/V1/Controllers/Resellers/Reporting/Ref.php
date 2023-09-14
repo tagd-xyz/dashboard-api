@@ -3,6 +3,7 @@
 namespace App\Http\V1\Controllers\Resellers\Reporting;
 
 use App\Http\V1\Controllers\Controller as Controller;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Tagd\Core\Models\Item\Item as ItemModel;
 use Tagd\Core\Models\Item\Tagd as TagdModel;
@@ -14,7 +15,9 @@ class Ref extends Controller
         $actingAs = $this->actingAs($request);
 
         $brands = ItemModel::query()
-            // ->where('retailer_id', $actingAs->id)
+            ->whereHas('tagds', function (Builder $query) use ($actingAs) {
+                $query->where('reseller_id', $actingAs->id);
+            })
             ->whereNotNull('properties->brand')
             ->select('properties->brand as name')
             ->distinct('name')
@@ -30,7 +33,7 @@ class Ref extends Controller
         $actingAs = $this->actingAs($request);
 
         $countries = TagdModel::query()
-            ->whereHas('reseller_id', $actingAs->id)
+            ->where('reseller_id', $actingAs->id)
             ->whereNotNull('meta->location->country')
             ->select('meta->location->country as code')
             ->distinct('code')

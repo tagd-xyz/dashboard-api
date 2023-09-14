@@ -37,12 +37,12 @@ services:
     hostname: tagd-dash-api-queue
     working_dir: /app
     entrypoint: ["php", "artisan", "queue:work"]
-  tagd-dash-api-schedule:
-    <<: *tagd-dash-api
-    container_name: tagd-dash-api-schedule
-    hostname: tagd-dash-api-schedule
-    working_dir: /app
-    entrypoint: ["php", "artisan", "schedule:work"]
+  # tagd-dash-api-schedule:
+  #   <<: *tagd-dash-api
+  #   container_name: tagd-dash-api-schedule
+  #   hostname: tagd-dash-api-schedule
+  #   working_dir: /app
+  #   entrypoint: ["php", "artisan", "schedule:work"]
 networks:
   default:
     name: dev

@@ -137,12 +137,12 @@ trait Currency
      */
     private function max(string $currency): float
     {
-        return $this
+        return floatval($this
             ->filteredTagds($currency)
             ->selectRaw("max(json_extract(`meta`, '$.price.amount')) as max")
             ->get()
             ->pluck('max')
-            ->first() ?? 0.0;
+            ->first() ?? 0.0);
     }
 
     /**
